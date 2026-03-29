@@ -1,0 +1,29 @@
+/**
+ * 後台表格操作欄圓形按鈕（與客戶購物車 `Cart.jsx` 刪除欄同概念：36×36、rounded-circle）
+ * 由 `DataTableIconButton` 使用，勿與長方形 `btn-group` 混用
+ */
+.data-table__icon-action-btn {
+  flex-shrink: 0;
+}
+
+/**
+ * 偶數列底色（內建 .table-striped 為奇數列 nth-of-type(odd)，此處改為 even）
+ * 變數與 Bootstrap .table-striped 相同，hover 仍由 .table-hover 的 --bs-table-bg-state 覆蓋。
+ */
+.data-table--striped-even > tbody > tr:nth-of-type(even) > * {
+  --bs-table-color-type: var(--bs-table-striped-color);
+  --bs-table-bg-type: var(--bs-table-striped-bg);
+}
+
+/**
+ * RWD：欄位多時避免擠壓成直向單字，改以橫向捲動閱讀（對齊課程後台 table-responsive 期待）
+ */
+.data-table.table-responsive {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+}
+
+.data-table__table {
+  min-width: 56rem;
+  width: 100%;
+}

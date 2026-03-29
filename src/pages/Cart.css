@@ -1,0 +1,285 @@
+/**
+ * 客戶購物車頁面：左右分欄、米色清單標題、深綠訂單側欄
+ */
+
+.cart-page {
+  --cart-beige: #f2ebe3;
+  --cart-green: #1a5c3a;
+  --cart-green-hover: #144a2f;
+  --cart-border: #dee2e6;
+  --cart-link: #198754;
+}
+
+.cart-page__list-wrap {
+  background: #fff;
+  border: 1px solid var(--cart-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.cart-page__list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: var(--cart-beige);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/**
+ * 與頁面大標題（h2）一致：繼承 body 字族，不使用獨立襯線字
+ */
+.cart-page__list-title {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0;
+  color: #333;
+}
+
+.cart-page__link-delete-all {
+  color: var(--cart-link);
+  text-decoration: none;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cart-page__link-delete-all:hover:not(:disabled) {
+  text-decoration: underline;
+  color: #146c43;
+}
+
+.cart-page__link-delete-all:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cart-page__table thead th {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #555;
+  border-bottom: 1px solid var(--cart-border);
+  padding: 0.75rem 1rem;
+  background: #fafafa;
+}
+
+/** 商品欄保底寬度，避免與側欄並排時被壓成單字換行 */
+.cart-page__th-product,
+.cart-page__td-product {
+  min-width: 11rem;
+}
+
+.cart-page__th-narrow {
+  width: 6.5rem;
+  white-space: nowrap;
+}
+
+.cart-page__th-qty {
+  width: 7.5rem;
+}
+
+.cart-page__th-action {
+  width: 4.5rem;
+}
+
+.cart-page__table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-page__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cart-page__product-thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.cart-page__product-sub {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+}
+
+/**
+ * 購物車下方「取消結帳」按鈕（`Cart.jsx`）
+ * - 預設：`btn-outline-secondary`
+ * - `:hover`：強制與 Stepper 啟用圓圈同色（Bootstrap primary），白字；`!important` 覆蓋 outline 預設
+ * - `:disabled` 不套用 hover（避免誤導）
+ */
+.cart-checkout-cancel-btn:hover:not(:disabled) {
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+  color: #fff !important;
+}
+
+.cart-page__sidebar {
+  border: 1px solid var(--cart-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.cart-page__sidebar-header {
+  background: var(--cart-green);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.cart-page__sidebar-body {
+  padding: 1rem 1.1rem;
+}
+
+.cart-page__coupon-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: #333;
+}
+
+.cart-page__coupon-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.cart-page__coupon-row .form-control {
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+.cart-page__coupon-apply {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cart-page__summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 0.35rem 0;
+  color: #444;
+}
+
+.cart-page__summary-row--total {
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding-top: 0.65rem;
+  margin-top: 0.35rem;
+  border-top: 1px dashed var(--cart-border);
+  color: #222;
+}
+
+.cart-page__sidebar-actions {
+  padding: 1rem 1.1rem;
+  border-top: 1px solid var(--cart-border);
+  background: #fafafa;
+}
+
+.cart-page__btn-checkout {
+  background: var(--cart-green);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 0.75rem;
+}
+
+.cart-page__btn-checkout:hover:not(:disabled) {
+  background: var(--cart-green-hover);
+  color: #fff;
+}
+
+.cart-page__btn-checkout:disabled {
+  opacity: 0.55;
+}
+
+.cart-page__actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.cart-page__total-line {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cart-green);
+}
+
+@media (max-width: 991.98px) {
+  .cart-page__sidebar {
+    margin-top: 0.5rem;
+  }
+}
+
+/**
+ * 平板／手機：數量改直向（上 ＋、中數字、下 −），價格兩行；縮小數量欄寬
+ */
+@media (max-width: 1199.98px) {
+  .cart-page__th-qty,
+  .cart-page__td-qty {
+    width: 3.25rem;
+    min-width: 3.25rem;
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
+  }
+
+  .cart-page__qty-wrap {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .cart-page__qty-btn--plus {
+    order: 1;
+  }
+
+  .cart-page__qty-num {
+    order: 2;
+    min-width: 1.25rem;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .cart-page__qty-btn--minus {
+    order: 3;
+  }
+}
+
+/** 極窄螢幕：略縮商品縮圖，讓文字區多一點寬 */
+@media (max-width: 575.98px) {
+  .cart-page__product-thumb {
+    width: 56px;
+    height: 56px;
+  }
+
+  .cart-page__table tbody td,
+  .cart-page__table thead th {
+    padding: 0.65rem 0.5rem;
+  }
+
+  .cart-page__th-product,
+  .cart-page__td-product {
+    min-width: 0;
+  }
+}

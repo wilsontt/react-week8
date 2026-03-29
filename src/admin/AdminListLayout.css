@@ -1,0 +1,68 @@
+/**
+ * 後台列表頁版面：與客戶購物車共用 `Cart.css` 的 `.cart-page` 區塊 class。
+ * 以下選擇器僅在 `.admin-store-layout` 內，將 `DataTable` 產生的表格視覺對齊 `.cart-page__table`
+ * （覆寫 thead/tr 的 inline border；RWD 與 `DataTable` 的 `.data-table` 搭配）
+ */
+
+.admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table thead tr {
+  border-bottom: none !important;
+}
+
+.admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table thead th {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #555;
+  border-bottom: 1px solid var(--cart-border) !important;
+  padding: 0.75rem 1rem !important;
+  background: #fafafa !important;
+}
+
+.admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table tbody tr {
+  border-bottom: none !important;
+}
+
+.admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table tbody td {
+  padding: 1rem !important;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/**
+ * 標題列（與「XXX管理」同列）右側主按鈕：沿用 `.cart-page__btn-checkout` 但不占滿寬
+ */
+.admin-store-layout .admin-store-layout__title-row .cart-page__btn-checkout {
+  width: auto;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+/** 窄螢幕：標題與主按鈕直向排列、按鈕滿寬易點擊 */
+@media (max-width: 575.98px) {
+  .admin-store-layout__title-row {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .admin-store-layout__title-row h2 {
+    justify-content: flex-start;
+  }
+
+  .admin-store-layout__title-row .cart-page__btn-checkout,
+  .admin-store-layout__title-row .btn-outline-danger {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/** 平板／手機：略縮表格內距，橫向捲動時仍易讀 */
+@media (max-width: 767.98px) {
+  .admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table tbody td,
+  .admin-store-layout.cart-page .cart-page__list-wrap .table-responsive .table thead th {
+    padding: 0.65rem 0.5rem !important;
+    font-size: 0.8125rem;
+  }
+}

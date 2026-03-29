@@ -1,0 +1,41 @@
+/**
+ * 全站金額顯示（與客戶購物車相同）
+ * 桌機：NT$ 與數字同行；≤1199.98px：上 NT$、下金額
+ */
+
+.cart-page__price-cell .cart-page__currency,
+.cart-page__price-cell .cart-page__amount {
+  display: inline;
+}
+
+.cart-page__price-cell .cart-page__currency {
+  margin-right: 0.25rem;
+}
+
+@media (max-width: 1199.98px) {
+  .cart-page__price-cell {
+    text-align: center !important;
+    vertical-align: middle;
+  }
+
+  .cart-page__price-cell .cart-page__currency,
+  .cart-page__price-cell .cart-page__amount {
+    display: block;
+    line-height: 1.25;
+  }
+
+  .cart-page__price-cell .cart-page__currency {
+    margin-right: 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #6c757d;
+  }
+
+  .cart-page__price-cell .cart-page__amount {
+    font-size: 0.95rem;
+  }
+
+  .cart-page__price-cell--total .cart-page__amount {
+    font-weight: 700;
+  }
+}

@@ -1,0 +1,111 @@
+/**
+ * 結帳流程 Stepper
+ *
+ * - 圓圈數字較預設版大（約 1.35rem），標籤約 1rem
+ * - 啟用態：`circle--active` 藍底白字；`label--active` 深字
+ * - 連接線：`line--done` 與圓圈同色，表示該段路徑已完成
+ */
+
+/* 外層：水平排列、可換行（窄螢幕） */
+.checkout-stepper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0;
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+}
+
+/* 單一「步驟＋右側連接線」群組 */
+.checkout-stepper__segment {
+  display: flex;
+  align-items: flex-start;
+  flex: 0 1 auto;
+}
+
+/* 單步：圓圈在上、標籤在下 */
+.checkout-stepper__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 5.5rem;
+}
+
+/* 尚未抵達的步驟：白底、灰框、灰字 */
+.checkout-stepper__circle {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #dee2e6;
+  background: #fff;
+  color: #6c757d;
+}
+
+/* 已完成或當前步驟：藍底白字（與「取消結帳」hover 同色票 #0d6efd） */
+.checkout-stepper__circle--active {
+  background: #0d6efd;
+  border-color: #0d6efd;
+  color: #fff;
+}
+
+/* 步驟說明文字；啟用時另加 `label--active` */
+.checkout-stepper__label {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6c757d;
+  max-width: 6rem;
+  line-height: 1.25;
+}
+
+.checkout-stepper__label--active {
+  color: #212529;
+}
+
+/*
+ * 兩圓之間橫線；`margin-top` 讓線條對齊圓心（非整欄含標籤的垂直中心）
+ */
+.checkout-stepper__line {
+  width: clamp(1.5rem, 8vw, 3.5rem);
+  height: 3px;
+  border-radius: 2px;
+  background: #dee2e6;
+  flex-shrink: 0;
+  margin: 0 0.15rem;
+  align-self: flex-start;
+  margin-top: calc(3.25rem / 2 - 1.5px);
+}
+
+/* 此線段左側之步驟已完成時改為藍色 */
+.checkout-stepper__line--done {
+  background: #0d6efd;
+}
+
+/* 窄螢幕略縮圓圈與線長，維持可讀性 */
+@media (max-width: 575.98px) {
+  .checkout-stepper__circle {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.15rem;
+  }
+
+  .checkout-stepper__label {
+    font-size: 0.9rem;
+  }
+
+  .checkout-stepper__line {
+    width: 1rem;
+    margin-top: calc(2.75rem / 2 - 1.5px);
+  }
+}
