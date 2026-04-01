@@ -1,0 +1,13 @@
+/**
+ * 後台登入：窄螢幕滿寬可讀，寬螢幕限制最大寬度（勿使用 w-25 等百分比寬）
+ * PageWithLogoBg 內層為 flex column + align-items:center，子元素需 align-self:stretch 才吃滿橫向
+ */
+.admin-login-shell {
+  width: 100%;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: stretch;
+  padding-bottom: 1.5rem;
+}
+

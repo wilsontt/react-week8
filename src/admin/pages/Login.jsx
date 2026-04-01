@@ -6,6 +6,7 @@ import PageWithLogoBg from "../../components/common/PageWithLogoBg";
 import { showNotification } from "../../slices/notificationSlice";
 
 import axios from "axios";
+import "./Login.css";
 
 
 // API 設定
@@ -113,18 +114,18 @@ function Login({ setIsAuth }) {
   // });
 
   return (
-    <PageWithLogoBg>
-      {/* 登入表單 */}
-      {/* <div className="container mt-5 mx-auto rounded-3" style={{ maxWidth: "28rem" }}> */}
-        <h2 className="mb-3 font-weight-normal text-center">Please Login 請先登入</h2>
-      <div className="container mt-5 mx-auto rounded-3 w-25">
-        <form className="form-floating w-100 px-3" onSubmit={handleSubmit(onLoginSubmit)}>
-          <div className="form-floating mb-2">
+    <PageWithLogoBg className="px-2 px-sm-3">
+      <div className="admin-login-shell mt-4 mt-md-5">
+        <h2 className="mb-3 fw-normal text-center px-1">Please Login 請先登入</h2>
+        <form className="w-100" onSubmit={handleSubmit(onLoginSubmit)}>
+          <div className="form-floating mb-3">
             <input
+              id="admin-login-username"
               type="email"
               className="form-control w-100 text-start"
               name="username"
               placeholder="name@example.com"
+              autoComplete="email"
               // React Hook Form 表單驗證規則：設定表單欄位的驗證規則。
               {...register("username", {
                 required: "請輸入 EMAIL",
@@ -139,15 +140,17 @@ function Login({ setIsAuth }) {
             // required
             // autoComplete="email"
             />
-            <label htmlFor="username">Email address</label>
+            <label htmlFor="admin-login-username">Email address</label>
             {errors.username && <p className="text-danger">{errors.username.message}</p>}
           </div>
-          <div className="form-floating mb-2">
+          <div className="form-floating mb-3">
             <input
+              id="admin-login-password"
               type="password"
               className="form-control w-100 text-start"
               name="password"
               placeholder="Password"
+              autoComplete="current-password"
               // React Hook Form 表單驗證規則：設定表單欄位的驗證規則。
               {...register("password", {
                 required: "請輸入密碼",
@@ -162,13 +165,10 @@ function Login({ setIsAuth }) {
             // required
             // autoComplete="current-password"
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="admin-login-password">Password</label>
             {errors.password && <p className="text-danger">{errors.password.message}</p>}
           </div>
-          <button
-            className="w-100 mb-3 btn btn-lg btn-primary"
-            type="submit"
-          >
+          <button className="w-100 btn btn-lg btn-primary" type="submit">
             Login 登入
           </button>
         </form>
