@@ -12,10 +12,8 @@ import { setFormData, setStep, createOrderThunk } from "../../slices/checkoutSli
 import { showNotification } from "../../slices/notificationSlice";
 import {
   selectCarts,
-  selectTotalAmount,
   selectAppliedCoupon,
-  selectCouponDiscountAmount,
-  selectTotalAfterCoupon,
+  selectCartOrderTotals,
 } from "../../slices/cartSlice";
 
 const getProduct = (item) => item?.product ?? item;
@@ -25,10 +23,9 @@ const DEFAULT_FORM = { email: "", name: "", tel: "", address: "", message: "" };
 export default function CheckoutForm() {
   const dispatch = useDispatch();
   const carts = useSelector(selectCarts);
-  const totalAmount = useSelector(selectTotalAmount);
   const appliedCoupon = useSelector(selectAppliedCoupon);
-  const couponDiscount = useSelector(selectCouponDiscountAmount);
-  const totalAfterCoupon = useSelector(selectTotalAfterCoupon);
+  const { productSubtotal, couponDiscount, shippingFee, totalPayable } =
+    useSelector(selectCartOrderTotals);
   const { formData } = useSelector((s) => s.checkout);
   const initializedRef = useRef(false);
 
@@ -201,7 +198,7 @@ export default function CheckoutForm() {
             <hr />
             <div className="d-flex justify-content-between small text-muted">
               <span>商品小計</span>
-              <MoneyAmount value={totalAmount} />
+              <MoneyAmount value={productSubtotal} />
             </div>
             {appliedCoupon && couponDiscount > 0 ? (
               <div className="d-flex justify-content-between small text-success">
@@ -212,9 +209,13 @@ export default function CheckoutForm() {
                 </span>
               </div>
             ) : null}
+            <div className="d-flex justify-content-between small text-muted">
+              <span>運費總金額</span>
+              <MoneyAmount value={shippingFee} />
+            </div>
             <div className="d-flex justify-content-between align-items-baseline flex-wrap gap-2 fw-bold text-success mt-2">
               <span>預購總金額</span>
-              <MoneyAmount value={totalAfterCoupon} total className="text-success" />
+              <MoneyAmount value={totalPayable} total className="text-success" />
             </div>
           </div>
         </div>

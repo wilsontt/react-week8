@@ -7,10 +7,8 @@ import MoneyAmount from "../common/MoneyAmount";
 import { payOrderThunk, setStep, setPaymentMethod } from "../../slices/checkoutSlice";
 import {
   selectCarts,
-  selectTotalAmount,
   selectAppliedCoupon,
-  selectCouponDiscountAmount,
-  selectTotalAfterCoupon,
+  selectCartOrderTotals,
 } from "../../slices/cartSlice";
 import { showNotification } from "../../slices/notificationSlice";
 
@@ -25,10 +23,9 @@ const PAYMENT_OPTIONS = [
 export default function CheckoutPayment() {
   const dispatch = useDispatch();
   const carts = useSelector(selectCarts);
-  const totalAmount = useSelector(selectTotalAmount);
   const appliedCoupon = useSelector(selectAppliedCoupon);
-  const couponDiscount = useSelector(selectCouponDiscountAmount);
-  const totalAfterCoupon = useSelector(selectTotalAfterCoupon);
+  const { productSubtotal, couponDiscount, shippingFee, totalPayable } =
+    useSelector(selectCartOrderTotals);
   const { formData, orderInfo, paymentMethod, loading } = useSelector((s) => s.checkout);
 
   const orderId = orderInfo?.id ?? orderInfo?.orderId ?? "";
@@ -156,7 +153,7 @@ export default function CheckoutPayment() {
             <hr />
             <div className="small text-muted d-flex justify-content-between">
               <span>商品小計</span>
-              <MoneyAmount value={totalAmount} />
+              <MoneyAmount value={productSubtotal} />
             </div>
             {appliedCoupon && couponDiscount > 0 ? (
               <div className="small text-success d-flex justify-content-between">
@@ -167,9 +164,13 @@ export default function CheckoutPayment() {
                 </span>
               </div>
             ) : null}
+            <div className="small text-muted d-flex justify-content-between">
+              <span>運費總金額</span>
+              <MoneyAmount value={shippingFee} />
+            </div>
             <div className="fw-bold text-success mt-2 d-flex flex-wrap justify-content-between align-items-baseline gap-2">
               <span>應付金額：</span>
-              <MoneyAmount value={totalAfterCoupon} total className="text-success" />
+              <MoneyAmount value={totalPayable} total className="text-success" />
             </div>
           </div>
         </div>

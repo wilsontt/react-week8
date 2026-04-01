@@ -15,7 +15,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { createSelector } from "@reduxjs/toolkit";
 import { FaShoppingCart, FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import PageWithLogoBg from "../components/common/PageWithLogoBg";
 import {
@@ -25,7 +24,7 @@ import {
   selectTotalQty,
   selectTotalAmount,
   selectAppliedCoupon,
-  selectCouponDiscountAmount,
+  selectCartOrderTotals,
   updateCartQty,
   removeCartItem,
   clearCart,
@@ -54,27 +53,6 @@ import MoneyAmount from "../components/common/MoneyAmount";
 import "./Cart.css";
 
 const ITEMS_PER_PAGE = 5;
-
-/** 固定運費（展示用；無 API 時使用） */
-const SHIPPING_FEE = 120;
-
-/**
- * 訂單側欄金額一次算出（小計、折抵、運費、應付），避免多個 selector 拆算時不一致
- */
-const selectCartOrderTotals = createSelector(
-  [selectTotalAmount, selectCouponDiscountAmount],
-  (subtotal, discount) => {
-    const afterCoupon = Math.max(0, subtotal - discount);
-    const shippingFee = afterCoupon > 0 ? SHIPPING_FEE : 0;
-    return {
-      productSubtotal: subtotal,
-      couponDiscount: discount,
-      afterCoupon,
-      shippingFee,
-      totalPayable: afterCoupon + shippingFee,
-    };
-  }
-);
 
 /**
  * @param {unknown} item

@@ -6,6 +6,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as cartApi from "../services/cartApi";
 import { computePercentDiscount } from "../utils/couponClient";
 
+/** 固定運費（展示用；無 API 時使用） */
+export const SHIPPING_FEE = 120;
+
 /** 非同步：取得購物車 */
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
@@ -180,6 +183,21 @@ export const selectTotalAfterCoupon = (state) => {
   const subtotal = selectTotalAmount(state);
   const off = selectCouponDiscountAmount(state);
   return Math.max(0, subtotal - off);
+};
+
+/** 訂單金額摘要：小計、折抵、運費、應付（全站結帳流程共用） */
+export const selectCartOrderTotals = (state) => {
+  const productSubtotal = selectTotalAmount(state);
+  const couponDiscount = selectCouponDiscountAmount(state);
+  const afterCoupon = Math.max(0, productSubtotal - couponDiscount);
+  const shippingFee = afterCoupon > 0 ? SHIPPING_FEE : 0;
+  return {
+    productSubtotal,
+    couponDiscount,
+    afterCoupon,
+    shippingFee,
+    totalPayable: afterCoupon + shippingFee,
+  };
 };
 
 export default cartSlice.reducer;
