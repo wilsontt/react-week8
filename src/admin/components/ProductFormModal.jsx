@@ -208,7 +208,9 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
   };
 
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!modalRef.current) return;

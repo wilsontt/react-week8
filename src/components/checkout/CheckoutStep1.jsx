@@ -13,8 +13,6 @@ import {
 } from "../../slices/cartSlice";
 import MoneyAmount from "../common/MoneyAmount";
 
-const getProduct = (item) => item?.product ?? item;
-
 export default function CheckoutStep1() {
   const dispatch = useDispatch();
   const carts = useSelector(selectCarts);

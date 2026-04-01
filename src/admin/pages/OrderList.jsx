@@ -238,6 +238,11 @@ export default function OrderList() {
       </div>
 
       <OrderModal
+        key={
+          showOrderModal && currentOrder
+            ? String(currentOrder.id)
+            : "order-modal-closed"
+        }
         show={showOrderModal}
         order={currentOrder}
         onClose={() => setShowOrderModal(false)}

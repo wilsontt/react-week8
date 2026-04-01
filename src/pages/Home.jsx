@@ -8,6 +8,7 @@ import PageWithLogoBg from "../components/common/PageWithLogoBg";
 import img1 from "../assets/首頁-1.png";
 import img2 from "../assets/首頁-2.png";
 import img3 from "../assets/首頁-3.png";
+import "./Home.css";
 
 const CAROUSEL_IMAGES = [
   { src: img1, alt: "客製化植栽展示" },
@@ -17,12 +18,12 @@ const CAROUSEL_IMAGES = [
 
 function Home() {
   return (
-    <PageWithLogoBg className="container-fluid" alignTop>
-      <div className="w-95 mx-auto">
-        {/* 上方：3 張圖輪播 */}
+    <PageWithLogoBg className="container-fluid px-0" alignTop>
+      <div className="container px-2 px-sm-3 pb-4">
+        {/* 上方：3 張圖輪播（圖片 w-100，不要導致原圖寬度撐出 x 軸） */}
         <div
           id="homeCarousel"
-          className="carousel slide carousel-fade mb-4 rounded overflow-hidden shadow-sm"
+          className="home-page__carousel carousel slide carousel-fade mb-4 rounded shadow-sm w-100 overflow-hidden"
           data-bs-ride="carousel"
         >
           <div className="carousel-inner">
@@ -31,12 +32,7 @@ function Home() {
                 key={item.alt}
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
               >
-                <img
-                  src={item.src}
-                  className="d-block w-95 text-center"
-                  style={{ objectFit: "cover", maxHeight: "400px", margin: "0 auto" }}
-                  alt={item.alt}
-                />
+                <img src={item.src} alt={item.alt} />
               </div>
             ))}
           </div>
@@ -72,15 +68,16 @@ function Home() {
           </div>
         </div>
 
-        {/* 中間：文字（含專欄教學精要，與下方專欄卡片呼應） */}
+        {/* 中間：文字置中，隨螢幕寬度縮放 */}
         <div className="w-100 text-center mb-4">
           <h2 className="mb-2">
-            <FaLeaf className="text-success me-2" /> 花草的世界
+            <FaLeaf className="text-success me-2" aria-hidden /> 花草的世界
           </h2>
-          <p className="text-muted mb-3 fw-semibold">
-            嚴選花卉，傳遞心意。專注於打造客製化植栽的世界！</p>
+          <p className="text-muted mb-3 fw-semibold px-1">
+            嚴選花卉，傳遞心意。專注於打造客製化植栽的世界！
+          </p>
           <div
-            className="mx-auto text-start text-md-center px-2 mb-4"
+            className="mx-auto text-center px-2 mb-4"
             style={{ maxWidth: "42rem" }}
           >
             <p className="text-muted small mb-2 lh-lg">
@@ -91,54 +88,60 @@ function Home() {
               <strong className="text-body">「多肉與花卉佈置造景」</strong>
               則分享如何把植栽帶進商業與居家空間——從場勘、討論與規劃、現場執行到後續保養，一步步把自然變成日常風景。
             </p>
-            <p className="small mb-0">
-              <Link to="/column/succulent" className="text-success text-decoration-none fw-semibold">
+            <p className="small mb-0 d-flex flex-wrap justify-content-center align-items-center gap-2">
+              <Link
+                to="/column/succulent"
+                className="text-success text-decoration-none fw-semibold text-break"
+              >
                 閱讀：認識多肉植物
               </Link>
-              <span className="text-muted mx-2" aria-hidden="true">
+              <span className="text-muted" aria-hidden="true">
                 ｜
               </span>
-              <Link to="/column/landscape" className="text-success text-decoration-none fw-semibold">
+              <Link
+                to="/column/landscape"
+                className="text-success text-decoration-none fw-semibold text-break"
+              >
                 閱讀：佈置造景
               </Link>
             </p>
           </div>
-          <p className="small text-muted mb-0">
-            <FaLeaf className="me-1 text-success" />品質把關 · 安心配送 · 貼心服務
+          <p className="small text-muted mb-0 px-1">
+            <FaLeaf className="me-1 text-success" aria-hidden />
+            品質把關 · 安心配送 · 貼心服務
           </p>
         </div>
 
-      </div>
-      {/* 下方：2 個專欄主題連結（左右各一） */}
-      <div className="row g-6 w-50 justify-content-center">
-        <div className="col-12 col-md-6 col-lg-6 w-50">
-          <Link
-            to="/column/succulent"
-            className="card text-decoration-none text-dark h-100 border shadow-sm"
-          >
-            <div className="card-body text-center">
-              <h5 className="card-title">認識多肉植物</h5>
-              <p className="card-text text-muted small mb-0">
-                了解多肉植物的種類與照顧方式
-              </p>
-            </div>
-          </Link>
+        {/* 下方：2 個專欄主題（窄螢幕直向堆疊、置中；勿與 col-12 並用 w-50 造成溢出） */}
+        <div className="row g-3 g-md-4 justify-content-center mx-0 w-100">
+          <div className="col-12 col-md-6 col-lg-5 d-flex">
+            <Link
+              to="/column/succulent"
+              className="card text-decoration-none text-dark h-100 border shadow-sm w-100"
+            >
+              <div className="card-body text-center">
+                <h5 className="card-title">認識多肉植物</h5>
+                <p className="card-text text-muted small mb-0">
+                  了解多肉植物的種類與照顧方式
+                </p>
+              </div>
+            </Link>
+          </div>
+          <div className="col-12 col-md-6 col-lg-5 d-flex">
+            <Link
+              to="/column/landscape"
+              className="card text-decoration-none text-dark h-100 border shadow-sm w-100"
+            >
+              <div className="card-body text-center">
+                <h5 className="card-title">多肉與花卉佈置造景</h5>
+                <p className="card-text text-muted small mb-0">
+                  空間造景介紹與造景規劃流程
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-6 w-50">
-          <Link
-            to="/column/landscape"
-            className="card text-decoration-none text-dark h-100 border shadow-sm"
-          >
-            <div className="card-body text-center">
-              <h5 className="card-title">多肉與花卉佈置造景</h5>
-              <p className="card-text text-muted small mb-0">
-                空間造景介紹與造景規劃流程
-              </p>
-            </div>
-          </Link>
-        </div>
       </div>
-      <br />
     </PageWithLogoBg>
   );
 }

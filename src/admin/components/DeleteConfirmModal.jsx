@@ -8,7 +8,9 @@ export default function DeleteConfirmModal({ show, title, onConfirm, onCancel })
   const modalRef = useRef(null);
   const modalInstanceRef = useRef(null);
   const onCancelRef = useRef(onCancel);
-  onCancelRef.current = onCancel;
+  useEffect(() => {
+    onCancelRef.current = onCancel;
+  }, [onCancel]);
 
   useEffect(() => {
     if (!modalRef.current) return;

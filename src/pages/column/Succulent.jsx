@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaLeaf, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import PageWithLogoBg from "../../components/common/PageWithLogoBg";
 import img1 from "../../assets/認識多肉-1.png";
@@ -13,8 +12,6 @@ import styles from "./Succulent.module.css";
 
 
 export default function Succulent() {
-  const [tocOpen, setTocOpen] = useState(false);
-
   return (
     <PageWithLogoBg className="container-fluid" alignTop>
       <article className={styles.article}>

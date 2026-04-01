@@ -1,0 +1,25 @@
+/**
+ * 首頁：輪播與區塊寬度，避免窄螢幕 x 軸溢出
+ */
+.home-page__carousel {
+  max-width: 100%;
+}
+
+.home-page__carousel .carousel-inner {
+  max-width: 100%;
+}
+
+.home-page__carousel .carousel-item img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: min(400px, 58vh);
+  object-fit: cover;
+}
+
+.home-page__carousel .carousel-indicators {
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}

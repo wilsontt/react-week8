@@ -1,0 +1,34 @@
+/**
+ * 全站 RWD：避免 375px 等窄螢幕出現整頁橫向捲動（x 軸溢出）
+ * 各頁面仍應以容器／響應式格線約束內容；此檔為保底層
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.App {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/** 寬表格僅在區塊內橫向捲動，不撐破版面寬度 */
+.table-responsive {
+  max-width: 100%;
+}

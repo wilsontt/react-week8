@@ -25,8 +25,8 @@ function App() {
       {/* 通知 Toast（右上方、日期下方） */}
       <NotificationToast />
       <div
-        className="container-fluid min-vh-80 d-flex flex-column px-4 px-md-5"
-        style={{ marginTop: 0, maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+        className="container-fluid min-vh-80 d-flex flex-column px-2 px-sm-3 px-md-4 px-lg-5 w-100"
+        style={{ marginTop: 0, maxWidth: "100%", marginLeft: "auto", marginRight: "auto" }}
       >
         {/* <MessageToast /> */}
         {routes}

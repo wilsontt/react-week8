@@ -29,7 +29,7 @@ export default function CheckoutPayment() {
   const appliedCoupon = useSelector(selectAppliedCoupon);
   const couponDiscount = useSelector(selectCouponDiscountAmount);
   const totalAfterCoupon = useSelector(selectTotalAfterCoupon);
-  const { formData, orderInfo, paymentMethod, loading, error } = useSelector((s) => s.checkout);
+  const { formData, orderInfo, paymentMethod, loading } = useSelector((s) => s.checkout);
 
   const orderId = orderInfo?.id ?? orderInfo?.orderId ?? "";
   const createdAt = orderInfo?.createdAt

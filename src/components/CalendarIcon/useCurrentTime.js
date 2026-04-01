@@ -31,11 +31,8 @@ export function useCurrentTime(options = {}) {
   const [currentTime, setCurrentTime] = useState(() => new Date());
 
   useEffect(() => {
-    // 如果 immediate 為 false，初始值保持不變
-    if (immediate) {
-      setCurrentTime(new Date());
-    }
-
+    // 不在 effect 開頭同步 setState（eslint react-hooks/set-state-in-effect）；
+    // 首次顯示時間由 useState 惰性初值負責；週期更新僅由 setInterval 觸發。
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, interval);

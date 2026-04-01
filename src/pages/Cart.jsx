@@ -254,7 +254,7 @@ export default function Cart() {
     } finally {
       setCouponApplyLoading(false);
     }
-  }, [couponInput, dispatch, appliedCoupon]);
+  }, [couponInput, dispatch, appliedCoupon, store]);
 
   const handleClearAll = useCallback(() => {
     if (showCheckout) return;

@@ -23,9 +23,11 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
   /** 關閉後要導向的路徑（填寫訂單時設為 /cart），在 hidden.bs.modal 時執行 */
   const afterCloseNavigateToRef = useRef(null);
 
-  /** 使用 ref 避免 onClose 納入 useEffect 依賴，防止父層 re-render 時 Modal 閃爍 */
+  /** 使用 ref 避免 onClose 納入 modal effect 依賴，防止父層 re-render 時 Modal 閃爍 */
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   /** 目前顯示的主圖 URL，點副圖可替換 */
   const [currentMainImageUrl, setCurrentMainImageUrl] = useState(

@@ -12,17 +12,13 @@ export default function OrderModal({ show, order, onClose, onSave }) {
   const modalRef = useRef(null);
   const modalInstanceRef = useRef(null);
 
-  // 本地狀態，用於編輯付款狀態
-  const [isPaid, setIsPaid] = useState(false);
-
-  useEffect(() => {
-    if (order) {
-      setIsPaid(order.is_paid);
-    }
-  }, [order]);
+  // 本地狀態：父層應以 key={order.id}（或開啟時唯一 key）重掛，使初值與該筆訂單一致
+  const [isPaid, setIsPaid] = useState(() => Boolean(order?.is_paid));
 
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!modalRef.current) return;

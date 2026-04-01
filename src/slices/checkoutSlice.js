@@ -104,7 +104,7 @@ const checkoutSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(payOrderThunk.fulfilled, (state, action) => {
+      .addCase(payOrderThunk.fulfilled, (state) => {
         state.loading = false;
         state.step = 4;
         state.error = null;
