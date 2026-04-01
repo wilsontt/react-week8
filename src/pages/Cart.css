@@ -242,16 +242,17 @@
     padding-right: 0.35rem;
   }
 
-  .cart-page__qty-wrap {
+  /** 僅表格內數量欄改直向；卡片版沿用橫向圈圈加減（與桌機表格同一套 class） */
+  .cart-page__table .cart-page__qty-wrap {
     flex-direction: column;
     gap: 0.2rem;
   }
 
-  .cart-page__qty-btn--plus {
+  .cart-page__table .cart-page__qty-btn--plus {
     order: 1;
   }
 
-  .cart-page__qty-num {
+  .cart-page__table .cart-page__qty-num {
     order: 2;
     min-width: 1.25rem;
     text-align: center;
@@ -261,7 +262,7 @@
     padding-right: 0;
   }
 
-  .cart-page__qty-btn--minus {
+  .cart-page__table .cart-page__qty-btn--minus {
     order: 3;
   }
 }
@@ -282,4 +283,183 @@
   .cart-page__td-product {
     min-width: 0;
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 窄螢幕（md 以下）：購物車一筆一卡（與桌機表格並存，見 Cart.jsx d-md-none） */
+/* -------------------------------------------------------------------------- */
+
+.cart-page__card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0.65rem 0.65rem 0.85rem;
+  background: #f8f9fa;
+}
+
+.cart-page__item-card {
+  background: #fff;
+  border: 1px solid var(--cart-border);
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: 0.85rem 0.75rem;
+}
+
+/** 上半：左圖 + 右側（分類／品名／描述 + 刪除鈕） */
+.cart-page__item-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.cart-page__item-card-thumb-wrap {
+  flex: 0 0 auto;
+  width: clamp(4.5rem, 26vw, 5.75rem);
+}
+
+.cart-page__item-card-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.cart-page__item-card-thumb--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  background: #e9ecef;
+  color: #868e96;
+  font-size: 0.75rem;
+  border-radius: 8px;
+}
+
+.cart-page__item-card-text-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cart-page__item-card-meta-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cart-page__item-card-meta-row--no-cat {
+  justify-content: flex-end;
+}
+
+.cart-page__item-card-cat {
+  font-size: 0.75rem;
+  color: #868e96;
+  line-height: 1.35;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.cart-page__item-card-remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  margin: -0.2rem -0.15rem 0 0;
+  border: none;
+  background: transparent;
+  color: #adb5bd;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cart-page__item-card-remove:hover:not(:disabled) {
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.08);
+}
+
+.cart-page__item-card-remove:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cart-page__item-card-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #212529;
+  line-height: 1.45;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.cart-page__item-card-desc {
+  font-size: 0.8rem;
+  color: #6c757d;
+  line-height: 1.5;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/** 下半：由左而右 — 圈圈加減（與表格相同）+ 價格橫排 */
+.cart-page__item-card-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem 1rem;
+}
+
+.cart-page__item-card-bottom .cart-page__qty-wrap {
+  flex-direction: row;
+  flex-shrink: 0;
+}
+
+.cart-page__item-card-prices-row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+
+.cart-page__item-card-origin {
+  font-size: 0.75rem;
+  color: #adb5bd;
+  text-decoration: line-through;
+}
+
+.cart-page__item-card-origin .cart-page__price-cell {
+  text-decoration: line-through;
+}
+
+.cart-page__item-card-line-total {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.cart-page__item-card-unit {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.cart-page__list-pagination {
+  margin-top: 0.5rem;
 }

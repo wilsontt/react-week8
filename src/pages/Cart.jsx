@@ -2,7 +2,7 @@
  * 客戶購物車頁面
  *
  * 版面：
- * - 左欄：購物清單（米色標題列、表格）
+ * - 左欄：購物清單（米色標題列；md 以下一筆一卡，md 以上表格）
  * - 右欄：訂單金額＋優惠券（上）、清空／繼續購物／總計／前往結帳（下）
  * - 結帳流程 `CheckoutFlow` 顯示於整個購物車區塊下方
  *
@@ -99,6 +99,28 @@ function getProductSubtitle(product) {
   }
   const cat = typeof product.category === "string" ? product.category : "";
   return cat;
+}
+
+/**
+ * 卡片頂部小字：僅分類（與簡述分開，避免重複）
+ * @param {Record<string, unknown> | null} product
+ */
+function getProductCategory(product) {
+  if (!product) return "";
+  const c = typeof product.category === "string" ? product.category.trim() : "";
+  return c;
+}
+
+/**
+ * 卡片內簡述：僅取描述首行，不用 overflow-wrap:anywhere，避免一字一行
+ * @param {Record<string, unknown> | null} product
+ */
+function getProductDescriptionExcerpt(product) {
+  if (!product) return "";
+  const desc = typeof product.description === "string" ? product.description.trim() : "";
+  if (!desc) return "";
+  const line = desc.split(/\r?\n/)[0]?.trim() ?? "";
+  return line.length > 72 ? `${line.slice(0, 72)}…` : line;
 }
 
 export default function Cart() {
@@ -319,7 +341,126 @@ export default function Cart() {
                       全部刪除
                     </button>
                   </div>
-                  <div className="table-responsive">
+                  {/* 窄螢幕（Bootstrap md 以下）：一筆一卡，文字區佔滿剩餘寬 */}
+                  <div className="cart-page__card-list d-md-none" role="list">
+                    {slicedCarts.map((item) => {
+                      const product = getProduct(item);
+                      const qty = item?.qty ?? 0;
+                      const price = Number(product?.price ?? 0);
+                      const originPrice = Number(product?.origin_price ?? 0);
+                      const lineTotal = price * qty;
+                      const category = getProductCategory(product);
+                      const descExcerpt = getProductDescriptionExcerpt(product);
+                      const showOriginStrike =
+                        Number.isFinite(originPrice) &&
+                        originPrice > 0 &&
+                        originPrice > price;
+                      return (
+                        <article
+                          key={item.id}
+                          className="cart-page__item-card"
+                          role="listitem"
+                        >
+                          <div className="cart-page__item-card-top">
+                            <div className="cart-page__item-card-thumb-wrap">
+                              {product?.imageUrl ? (
+                                <img
+                                  src={String(product.imageUrl)}
+                                  alt={String(product?.title ?? "商品")}
+                                  className="cart-page__item-card-thumb"
+                                />
+                              ) : (
+                                <div className="cart-page__item-card-thumb cart-page__item-card-thumb--placeholder">
+                                  無圖
+                                </div>
+                              )}
+                            </div>
+                            <div className="cart-page__item-card-text-col">
+                              <div
+                                className={`cart-page__item-card-meta-row${category ? "" : " cart-page__item-card-meta-row--no-cat"}`}
+                              >
+                                {category ? (
+                                  <span className="cart-page__item-card-cat">{category}</span>
+                                ) : null}
+                                <button
+                                  type="button"
+                                  className="cart-page__item-card-remove"
+                                  aria-label="刪除此項目"
+                                  disabled={showCheckout}
+                                  onClick={() => dispatch(removeCartItem(item.id))}
+                                >
+                                  <FaTrash size={16} />
+                                </button>
+                              </div>
+                              <div className="cart-page__item-card-title">
+                                {product?.title ?? "—"}
+                              </div>
+                              {descExcerpt ? (
+                                <div className="cart-page__item-card-desc">{descExcerpt}</div>
+                              ) : null}
+                            </div>
+                          </div>
+                          <div className="cart-page__item-card-bottom">
+                            <div className="d-flex align-items-center justify-content-center gap-1 cart-page__qty-wrap">
+                              <button
+                                type="button"
+                                className="cart-page__qty-btn--minus btn btn-outline-secondary btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                                style={{ width: 32, height: 32 }}
+                                aria-label="減少數量"
+                                disabled={showCheckout || qty <= 1}
+                                onClick={() =>
+                                  dispatch(
+                                    updateCartQty({
+                                      cartId: item.id,
+                                      qty: qty - 1,
+                                      productId: product?.id,
+                                    })
+                                  )
+                                }
+                              >
+                                <FaMinus size={12} />
+                              </button>
+                              <span className="cart-page__qty-num px-1">{qty}</span>
+                              <button
+                                type="button"
+                                className="cart-page__qty-btn--plus btn btn-outline-secondary btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                                style={{ width: 32, height: 32 }}
+                                aria-label="增加數量"
+                                disabled={showCheckout}
+                                onClick={() =>
+                                  dispatch(
+                                    updateCartQty({
+                                      cartId: item.id,
+                                      qty: qty + 1,
+                                      productId: product?.id,
+                                    })
+                                  )
+                                }
+                              >
+                                <FaPlus size={12} />
+                              </button>
+                            </div>
+                            <div className="cart-page__item-card-prices-row">
+                              {showOriginStrike ? (
+                                <span className="cart-page__item-card-origin">
+                                  <MoneyAmount value={originPrice} />
+                                </span>
+                              ) : null}
+                              <span className="cart-page__item-card-line-total">
+                                <MoneyAmount value={lineTotal} total />
+                              </span>
+                              <span className="cart-page__item-card-unit small text-muted">
+                                單價{" "}
+                                <MoneyAmount value={price} />
+                              </span>
+                            </div>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+
+                  <div className="d-none d-md-block table-responsive">
                     <table className="table mb-0 cart-page__table">
                       <thead>
                         <tr>
@@ -433,7 +574,7 @@ export default function Cart() {
                 </div>
 
                 {pagination.total_pages > 1 && (
-                  <div className="mt-3">
+                  <div className="mt-3 mb-2 mb-md-0 cart-page__list-pagination">
                     <Pagination pagination={pagination} onChangePage={(page) => setCurrentPage(page)} />
                   </div>
                 )}
