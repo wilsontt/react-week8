@@ -2,7 +2,7 @@
  * 購物車 Redux Slice
  * 參考架構：Store ← Slice (Cart, Products, Notification)
  */
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import * as cartApi from "../services/cartApi";
 import { computePercentDiscount } from "../utils/couponClient";
 
@@ -186,18 +186,19 @@ export const selectTotalAfterCoupon = (state) => {
 };
 
 /** 訂單金額摘要：小計、折抵、運費、應付（全站結帳流程共用） */
-export const selectCartOrderTotals = (state) => {
-  const productSubtotal = selectTotalAmount(state);
-  const couponDiscount = selectCouponDiscountAmount(state);
-  const afterCoupon = Math.max(0, productSubtotal - couponDiscount);
-  const shippingFee = afterCoupon > 0 ? SHIPPING_FEE : 0;
-  return {
-    productSubtotal,
-    couponDiscount,
-    afterCoupon,
-    shippingFee,
-    totalPayable: afterCoupon + shippingFee,
-  };
-};
+export const selectCartOrderTotals = createSelector(
+  [selectTotalAmount, selectCouponDiscountAmount],
+  (productSubtotal, couponDiscount) => {
+    const afterCoupon = Math.max(0, productSubtotal - couponDiscount);
+    const shippingFee = afterCoupon > 0 ? SHIPPING_FEE : 0;
+    return {
+      productSubtotal,
+      couponDiscount,
+      afterCoupon,
+      shippingFee,
+      totalPayable: afterCoupon + shippingFee,
+    };
+  }
+);
 
 export default cartSlice.reducer;
