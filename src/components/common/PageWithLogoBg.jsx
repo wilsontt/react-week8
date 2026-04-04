@@ -25,7 +25,7 @@ export default function PageWithLogoBg({ children, className = '', alignTop = fa
       {/* 內容疊在上方；alignTop 時置頂無空白，否則垂直置中 */}
       <div
         className={`position-relative w-100 d-flex flex-column align-items-center ${alignTop ? 'justify-content-start' : 'justify-content-center'}`}
-        style={{ zIndex: 1, minHeight: alignTop ? 'auto' : '80vh', padding: alignTop ? '0' : '2rem 0' }}
+        style={{ minHeight: alignTop ? 'auto' : '80vh', padding: alignTop ? '0' : '2rem 0' }}
       >
         {children}
       </div>

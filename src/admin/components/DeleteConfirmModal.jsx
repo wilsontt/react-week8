@@ -1,21 +1,32 @@
 /**
  * 刪除確認 Modal
+ * 使用 createPortal 掛至 document.body，避免 PageWithLogoBg 等父層 z-index 造成 backdrop 蓋住對話框而無法點擊。
  */
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Modal from "bootstrap/js/dist/modal";
+import { MODAL_NO_KEYBOARD } from "../../utils/bootstrapModalOptions";
 
-export default function DeleteConfirmModal({ show, title, onConfirm, onCancel }) {
+export default function DeleteConfirmModal({
+  show,
+  title,
+  message,
+  onConfirm,
+  onClose,
+  onCancel,
+}) {
   const modalRef = useRef(null);
   const modalInstanceRef = useRef(null);
-  const onCancelRef = useRef(onCancel);
+  const onDismissRef = useRef(null);
+  const dismiss = onClose ?? onCancel;
   useEffect(() => {
-    onCancelRef.current = onCancel;
-  }, [onCancel]);
+    onDismissRef.current = dismiss;
+  }, [dismiss]);
 
   useEffect(() => {
     if (!modalRef.current) return;
     const el = modalRef.current;
-    const modal = new Modal(el);
+    const modal = new Modal(el, MODAL_NO_KEYBOARD);
     modalInstanceRef.current = modal;
 
     if (show) {
@@ -23,7 +34,7 @@ export default function DeleteConfirmModal({ show, title, onConfirm, onCancel })
     }
 
     const handleHidden = () => {
-      onCancelRef.current?.();
+      onDismissRef.current?.();
     };
     el.addEventListener("hidden.bs.modal", handleHidden);
     return () => {
@@ -39,8 +50,18 @@ export default function DeleteConfirmModal({ show, title, onConfirm, onCancel })
     modalInstanceRef.current?.hide();
   };
 
-  // aria-hidden 由 Bootstrap show/hide 維護；勿寫在 JSX，避免父層 render 覆寫與焦點衝突
-  return (
+  if (!show) return null;
+
+  const bodyNode =
+    message != null && message !== "" ? (
+      message
+    ) : (
+      <>
+        確定要刪除「{title ?? ""}」嗎？此操作無法復原。
+      </>
+    );
+
+  const modalContent = (
     <div className="modal fade" ref={modalRef} tabIndex={-1}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
@@ -48,9 +69,7 @@ export default function DeleteConfirmModal({ show, title, onConfirm, onCancel })
             <h5 className="modal-title">確認刪除</h5>
             <button type="button" className="btn-close" aria-label="關閉" data-bs-dismiss="modal" />
           </div>
-          <div className="modal-body">
-            確定要刪除「{title}」嗎？此操作無法復原。
-          </div>
+          <div className="modal-body">{bodyNode}</div>
           <div className="modal-footer">
             <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">
               取消
@@ -63,4 +82,6 @@ export default function DeleteConfirmModal({ show, title, onConfirm, onCancel })
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

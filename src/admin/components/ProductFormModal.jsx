@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import Modal from "bootstrap/js/dist/modal";
+import { MODAL_NO_KEYBOARD } from "../../utils/bootstrapModalOptions";
 import { uploadImage } from "../../services/adminProductApi";
 
 /** 主圖 + 副圖合計上限；超過後鎖上傳，須先刪除圖片 */
@@ -215,7 +216,7 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
   useEffect(() => {
     if (!modalRef.current) return;
     const el = modalRef.current;
-    const modal = new Modal(el);
+    const modal = new Modal(el, MODAL_NO_KEYBOARD);
     modalInstanceRef.current = modal;
 
     if (show) {

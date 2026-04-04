@@ -15,6 +15,7 @@ import * as adminOrderApi from "../../services/adminOrderApi";
 import { showNotification } from "../../slices/notificationSlice";
 import { getListItemNo } from "../../utils/listUtils";
 import MoneyAmount from "../../components/common/MoneyAmount";
+import ListLoadingOverlay from "../../components/common/ListLoadingOverlay";
 
 export default function OrderList() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function OrderList() {
     has_pre: false,
     has_next: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Modal 狀態
   const [showOrderModal, setShowOrderModal] = useState(false);
@@ -208,14 +209,15 @@ export default function OrderList() {
           )}
         </div>
 
-        <div className="cart-page__list-wrap">
+        <div className="cart-page__list-wrap position-relative overflow-hidden">
+          <ListLoadingOverlay show={loading} message="載入訂單列表…" />
           <div className="cart-page__list-header">
             <h3 className="cart-page__list-title">訂單列表</h3>
           </div>
           <DataTable
             columns={columns}
             data={orders}
-            loading={loading}
+            loading={false}
             emptyState={
               <>
                 <div className="text-muted mb-3">目前沒有訂單唷</div>

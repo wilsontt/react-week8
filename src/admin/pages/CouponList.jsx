@@ -15,6 +15,7 @@ import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import * as couponApi from "../../services/couponApi";
 import { showNotification } from "../../slices/notificationSlice";
 import { getListItemNo } from "../../utils/listUtils";
+import ListLoadingOverlay from "../../components/common/ListLoadingOverlay";
 
 export default function CouponList() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function CouponList() {
     has_pre: false,
     has_next: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [editingCoupon, setEditingCoupon] = useState(null);
@@ -226,14 +227,15 @@ export default function CouponList() {
           </button>
         </div>
 
-        <div className="cart-page__list-wrap">
+        <div className="cart-page__list-wrap position-relative overflow-hidden">
+          <ListLoadingOverlay show={loading} message="載入優惠券列表…" />
           <div className="cart-page__list-header">
             <h3 className="cart-page__list-title">優惠券列表</h3>
           </div>
           <DataTable
             columns={columns}
             data={coupons}
-            loading={loading}
+            loading={false}
             emptyState="尚無優惠券，點擊「新增優惠券」建立"
           />
         </div>

@@ -15,6 +15,7 @@ import * as adminProductApi from "../../services/adminProductApi";
 import { showNotification } from "../../slices/notificationSlice";
 import { getListItemNo } from "../../utils/listUtils";
 import MoneyAmount from "../../components/common/MoneyAmount";
+import ListLoadingOverlay from "../../components/common/ListLoadingOverlay";
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Products() {
     has_pre: false,
     has_next: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Modal 狀態
   const [showFormModal, setShowFormModal] = useState(false);
@@ -217,14 +218,15 @@ export default function Products() {
           </button>
         </div>
 
-        <div className="cart-page__list-wrap">
+        <div className="cart-page__list-wrap position-relative overflow-hidden">
+          <ListLoadingOverlay show={loading} message="載入產品列表…" />
           <div className="cart-page__list-header">
             <h3 className="cart-page__list-title">產品列表</h3>
           </div>
           <DataTable
             columns={columns}
             data={products}
-            loading={loading}
+            loading={false}
             emptyState={<div className="text-muted">目前沒有產品</div>}
           />
         </div>

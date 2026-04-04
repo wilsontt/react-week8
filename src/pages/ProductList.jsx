@@ -16,6 +16,7 @@ import ProductDetailCard from "../components/common/ProductDetailCard";
 import MoneyAmount from "../components/common/MoneyAmount";
 // 共用清單水號工具：支援分頁後的連續編號
 import { getListItemNo } from "../utils/listUtils";
+import ListLoadingOverlay from "../components/common/ListLoadingOverlay";
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 const ALL_CATEGORY = "全部產品";
@@ -31,9 +32,12 @@ export default function ProductList() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   // 選取到的商品，用於顯示產品明細卡片模態視窗。null 時不渲染。
   const [selectedProduct, setSelectedProduct] = useState(null);
-  
+  /** 列表 API 請求中（首屏與換頁／換分類） */
+  const [listLoading, setListLoading] = useState(true);
+
   // 取得產品資料：page 與 category 變更時皆需重新 fetch
   const getProducts = useCallback(async (page = 1, category = null) => {
+    setListLoading(true);
     try {
       let url = `${VITE_API_BASE}/api/${VITE_API_PATH}/products?page=${page}`;
       if (category && category !== ALL_CATEGORY) {
@@ -48,6 +52,8 @@ export default function ProductList() {
     } catch (error) {
       console.error("取得產品資料失敗：", error);
       setProducts([]);
+    } finally {
+      setListLoading(false);
     }
   }, []);
 
@@ -116,8 +122,9 @@ export default function ProductList() {
   
   return (
     <PageWithLogoBg className="container-fluid" alignTop>
-      <div className="container-fluid py-3 border border-1 rounded shadow-sm">
-        <div className="row g-3">
+      <div className="container-fluid py-3 border border-1 rounded shadow-sm position-relative overflow-hidden" style={{ minHeight: "280px" }}>
+        <ListLoadingOverlay show={listLoading} message="載入產品中…" />
+        <div className={`row g-3 ${listLoading ? "opacity-0" : ""}`} style={listLoading ? { pointerEvents: "none" } : undefined} aria-hidden={listLoading}>
           {/* 左側：產品分類 */}
           <aside className="col-12 col-md-3 col-lg-2">
             <div className="card">

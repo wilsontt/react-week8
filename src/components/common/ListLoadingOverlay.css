@@ -1,0 +1,30 @@
+/**
+ * 列表區塊載入遮罩：父層需 `position: relative`（例如 `.cart-page__list-wrap.position-relative`）
+ */
+.list-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: inherit;
+}
+
+.list-loading-overlay__box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  background: rgba(248, 249, 250, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.list-loading-overlay__text {
+  font-size: 0.95rem;
+  color: #495057;
+  font-weight: 500;
+}
