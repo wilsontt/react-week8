@@ -1,5 +1,5 @@
 /**
- * 後台列表頁版面：與客戶購物車共用 `Cart.css` 的 `.cart-page` 區塊 class。
+ * 後台列表頁版面：與客戶購物車共用 `cart.css` 的 `.cart-page` 區塊 class。
  * 以下選擇器僅在 `.admin-store-layout` 內，將 `DataTable` 產生的表格視覺對齊 `.cart-page__table`
  * （覆寫 thead/tr 的 inline border；RWD 與 `DataTable` 的 `.data-table` 搭配）
  */

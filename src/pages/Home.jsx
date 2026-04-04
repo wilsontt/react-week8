@@ -8,7 +8,7 @@ import PageWithLogoBg from "../components/common/PageWithLogoBg";
 import img1 from "../assets/首頁-1.png";
 import img2 from "../assets/首頁-2.png";
 import img3 from "../assets/首頁-3.png";
-import "./Home.css";
+import "./home.css";
 
 const CAROUSEL_IMAGES = [
   { src: img1, alt: "客製化植栽展示" },
@@ -112,9 +112,9 @@ function Home() {
           </p>
         </div>
 
-        {/* 下方：2 個專欄主題（窄螢幕直向堆疊、置中；勿與 col-12 並用 w-50 造成溢出） */}
+        {/* 下方：2 個專欄主題（窄螢幕直向堆疊、置中；勿與 w-50 等並用造成溢出） */}
         <div className="row g-3 g-md-4 justify-content-center mx-0 w-100">
-          <div className="col-12 col-md-6 col-lg-5 d-flex">
+          <div className="col-md-6 col-lg-5 d-flex">
             <Link
               to="/column/succulent"
               className="card text-decoration-none text-dark h-100 border shadow-sm w-100"
@@ -127,7 +127,7 @@ function Home() {
               </div>
             </Link>
           </div>
-          <div className="col-12 col-md-6 col-lg-5 d-flex">
+          <div className="col-md-6 col-lg-5 d-flex">
             <Link
               to="/column/landscape"
               className="card text-decoration-none text-dark h-100 border shadow-sm w-100"

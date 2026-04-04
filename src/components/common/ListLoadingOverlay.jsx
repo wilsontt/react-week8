@@ -6,7 +6,7 @@
  * @param {boolean} props.show - 是否顯示
  * @param {string} [props.message] - 顯示文字
  */
-import "./ListLoadingOverlay.css";
+import "./list-loading-overlay.css";
 
 export default function ListLoadingOverlay({ show, message = "載入中…" }) {
   if (!show) return null;

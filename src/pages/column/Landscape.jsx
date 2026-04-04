@@ -1,7 +1,7 @@
 import PageWithLogoBg from "../../components/common/PageWithLogoBg";
 import { FaLeaf } from "react-icons/fa";
 
-import styles from "./Succulent.module.css";
+import styles from "./succulent.module.css";
 import img1 from "../../assets/空間造景-1.png";
 import img2 from "../../assets/空間造景-2.png";
 import img3 from "../../assets/空間造景-3.png";

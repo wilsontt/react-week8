@@ -22,7 +22,7 @@ const About = () => {
         >
         <div className="row g-4">
           {/* 品牌介紹 */}
-          <div className="col-12">
+          <div className="w-100">
             <div className="card border-0"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.4)' }}
             >
@@ -46,7 +46,7 @@ const About = () => {
           </div>
 
           {/* 我們的理念 */}
-          <div className="col-12 col-md-6">
+          <div className="col-md-6">
             <div className="card border-0 h-100" 
                   style={{ backgroundColor: 'rgba(248, 249, 250, 0.4)' }}
             >
@@ -62,7 +62,7 @@ const About = () => {
           </div>
 
           {/* 聯絡我們 */}
-          <div className="col-12 col-md-6">
+          <div className="col-md-6">
             <div className="card border-0 h-100" 
                   style={{ backgroundColor: 'rgba(248, 249, 250, 0.4)' }}
             >

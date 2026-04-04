@@ -8,7 +8,7 @@ import img5 from "../../assets/空氣-1.png";
 import img6 from "../../assets/空氣-2.png";
 import img7 from "../../assets/水-1.png";
 import img8 from "../../assets/水-2.png";
-import styles from "./Succulent.module.css";
+import styles from "./succulent.module.css";
 
 
 export default function Succulent() {

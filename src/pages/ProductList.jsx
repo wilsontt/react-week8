@@ -50,12 +50,17 @@ export default function ProductList() {
       // 切換分頁後捲回列表頂部，避免停在分頁區
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
-      console.error("取得產品資料失敗：", error);
+      dispatch(
+        showNotification({
+          type: "error",
+          message: error?.response?.data?.message ?? "取得產品資料失敗，請稍後再試",
+        })
+      );
       setProducts([]);
     } finally {
       setListLoading(false);
     }
-  }, []);
+  }, [dispatch]);
 
   // 初始載入：預設全部商品、第 1 頁
   useEffect(() => {
@@ -126,7 +131,7 @@ export default function ProductList() {
         <ListLoadingOverlay show={listLoading} message="載入產品中…" />
         <div className={`row g-3 ${listLoading ? "opacity-0" : ""}`} style={listLoading ? { pointerEvents: "none" } : undefined} aria-hidden={listLoading}>
           {/* 左側：產品分類 */}
-          <aside className="col-12 col-md-3 col-lg-2">
+          <aside className="col-md-3 col-lg-2">
             <div className="card">
               <div className="card-header fw-bold">產品分類</div>
               <div className="card-body p-2">
@@ -145,7 +150,7 @@ export default function ProductList() {
           </aside>
 
           {/* 右側：產品網格 */}
-          <main className="col-12 col-md-9 col-lg-10">
+          <main className="col-md-9 col-lg-10">
             <h3 className="mb-1"><FaListUl className="text-warning me-2" size={24} />產品列表</h3>
             <p className="text-muted mb-1">
               共 {totalCount} 項{activeCategory !== ALL_CATEGORY ? ` ${activeCategory}` : ""} 商品
@@ -153,7 +158,7 @@ export default function ProductList() {
             {/* 卡片間距：改 row 的 g-2 / g-3 / g-4 / g-5（愈大間距愈寬） */}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
               {displayProducts.length === 0 ? (
-                <div className="col-12 text-muted py-5">目前沒有符合條件的商品</div>
+                <div className="w-100 text-muted py-5">目前沒有符合條件的商品</div>
               ) : (
                 // index 搭配 pagination 計算跨頁連續水號
                 displayProducts.map((item, index) => (

@@ -10,7 +10,7 @@
  * - 數量：圓形邊框的「−／＋」按鈕呼叫 `updateCartQty`，非下拉選單
  * - 刪除單筆：圓形 `FaTrash` 按鈕呼叫 `removeCartItem`
  * - 優惠券：呼叫客戶端 POST /coupon 驗證（不需後台登入）；成功／失敗／移除皆透過 `showNotification`
- * - 取消結帳：按鈕 class `cart-checkout-cancel-btn`，hover 藍底白字（Cart.css）
+ * - 取消結帳：按鈕 class `cart-checkout-cancel-btn`，hover 藍底白字（cart.css）
  */
 import { useState, useMemo, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -50,7 +50,7 @@ import { showNotification } from "../slices/notificationSlice";
 import CheckoutFlow from "../components/checkout/CheckoutFlow";
 import Pagination from "../components/common/Pagination";
 import MoneyAmount from "../components/common/MoneyAmount";
-import "./Cart.css";
+import "./cart.css";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -306,7 +306,7 @@ export default function Cart() {
           <>
             <div className="row g-4 align-items-start">
               {/* 左欄：購物清單（xl 以下與側欄直向堆疊，避免平板並排壓縮表格） */}
-              <div className="col-12 col-xl-8">
+              <div className="col-xl-8">
                 <div className="cart-page__list-wrap">
                   <div className="cart-page__list-header">
                     <h3 className="cart-page__list-title">購物車</h3>
@@ -485,7 +485,7 @@ export default function Cart() {
                               <td className="text-end">
                                 <MoneyAmount value={price} />
                               </td>
-                              {/* 數量：桌機橫向 − 數字 ＋；平板以下改直向 ＋／數字／−（見 Cart.css） */}
+                              {/* 數量：桌機橫向 − 數字 ＋；平板以下改直向 ＋／數字／−（見 cart.css） */}
                               <td className="text-center cart-page__td-qty">
                                 <div className="d-flex align-items-center justify-content-center gap-1 cart-page__qty-wrap">
                                   <button
@@ -559,7 +559,7 @@ export default function Cart() {
               </div>
 
               {/* 右欄：上＝訂單金額＋優惠券；下＝清空／繼續購物／總計／前往結帳 */}
-              <div className="col-12 col-xl-4">
+              <div className="col-xl-4">
                 <div className="cart-page__sidebar">
                   <h4 className="cart-page__sidebar-header">訂單內容</h4>
                   <div className="cart-page__sidebar-body">
@@ -666,7 +666,7 @@ export default function Cart() {
                 <div className="d-flex justify-content-end mb-2">
                   {/*
                     cart-checkout-cancel-btn：預設 outline-secondary；
-                    :hover 時藍底白字（見 Cart.css），滑鼠移開恢復
+                    :hover 時藍底白字（見 cart.css），滑鼠移開恢復
                   */}
                   <button
                     type="button"

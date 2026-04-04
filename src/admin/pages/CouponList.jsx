@@ -6,8 +6,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { FaPlus, FaEdit, FaTrash, FaTicketAlt } from "react-icons/fa";
 import PageWithLogoBg from "../../components/common/PageWithLogoBg";
-import "../../pages/Cart.css";
-import "../AdminListLayout.css";
+import "../../pages/cart.css";
+import "../admin-list-layout.css";
 import Pagination from "../../components/common/Pagination";
 import DataTable, { DataTableIconButton } from "../../components/common/DataTable";
 import CouponFormModal from "../components/CouponFormModal";
@@ -46,7 +46,6 @@ export default function CouponList() {
       setCoupons(Array.isArray(list) ? list : []);
       setPagination(pag);
     } catch (err) {
-      console.error("取得優惠券失敗：", err);
       dispatch(showNotification({ type: "error", message: "取得優惠券失敗" }));
       setCoupons([]);
     } finally {

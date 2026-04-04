@@ -1,4 +1,4 @@
-import "./priceCell.css";
+import "./price-cell.css";
 
 /**
  * 金額顯示：NT$ + 千分位（與客戶購物車 `Cart.jsx` 相同結構與 RWD）

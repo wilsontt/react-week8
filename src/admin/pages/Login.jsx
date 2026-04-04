@@ -6,7 +6,7 @@ import PageWithLogoBg from "../../components/common/PageWithLogoBg";
 import { showNotification } from "../../slices/notificationSlice";
 
 import axios from "axios";
-import "./Login.css";
+import "./login.css";
 
 
 // API 設定
@@ -55,7 +55,6 @@ function Login({ setIsAuth }) {
       }
     } catch (error) {
       setIsAuth?.(false);
-      console.error("登入失敗：", error);
       const msg = error?.response?.data?.message ?? "登入失敗，請重新確認帳號密碼";
       dispatch(showNotification({ type: "error", message: msg }));
     }
@@ -68,44 +67,6 @@ function Login({ setIsAuth }) {
     document.cookie = `hexToken=${encodeURIComponent(loginResult.token)}; expires=${new Date(loginResult.expired).toUTCString()}; path=/; SameSite=Lax`;
     axios.defaults.headers.common.Authorization = loginResult.token;
   }, [loginResult]);
-
-  // 提交登入請求（API 驗證保留供未來使用）
-  // const onLoginSubmit = async (formData) => {
-  //   try {
-  //     // 發送登入請求，並取得 token。
-  //     const response = await axios.post(`${API_BASE}/admin/signin`, formData);
-  //     const { token, expired } = response.data;
-  //     // console.log('登入成功', response.data);
-
-  //     // 設定 token 到 state，並設定登入狀態為 true，並跳轉到產品列表頁面。
-  //     setLoginResult({ token, expired });
-  //     setIsAuth(true);
-  //     dispatch(login({ token, expired }));
-  //     dispatch(createAsyncMessage({
-  //       success: true,
-  //       message: "登入成功",
-  //     }))
-  //     navigate("/admin/productListPage");
-
-  //   } catch (error) {
-  //     setIsAuth(false); // 登入失敗，設置登入狀態為 false
-  //     console.error('登入失敗，錯誤訊息：', error);
-  //     dispatch(createAsyncMessage({
-  //       success: false,
-  //       message: "登入失敗，請重新確認你的帳號、密碼是否正確。",
-  //     }));
-  //     // 使用 alert 顯示錯誤訊息
-  //     // window.alert('登入失敗，請重新確認你的帳號、密碼是否正確。');
-  //     // if (axios.isAxiosError(error) && error.response) {
-  //     //   console.error('登入失敗，錯誤訊息：', error.response);
-  //     // } else {
-  //     //   console.error('登入失敗，錯誤訊息：', error);
-  //     // }
-  //   }
-  // };
-
-
-
 
   // 儲存登入表單資料，使用 useState 儲存表單資料 
   // const [formData, setFormData] = useState({

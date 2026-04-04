@@ -1,14 +1,14 @@
 /**
  * 結帳流程 Stepper（四步驟進度條）
  *
- * 視覺規格（樣式於 `CheckoutStepper.css`）：
+ * 視覺規格（樣式於 `checkout-stepper.css`）：
  * - `step.num <= currentStep`：藍底白字圓圈（Bootstrap primary `#0d6efd`）、下方標籤加粗深色
  * - 尚未走到：灰框白底圓圈、灰字標籤
  * - 兩步驟之間連接線：`line--done` 表示「已通過該段」（藍），否則淺灰
  *
  * 對應 `checkoutSlice.step`：1 清單確認 → 2 資料填寫 → 3 付款確認 → 4 完成訂單
  */
-import "./CheckoutStepper.css";
+import "./checkout-stepper.css";
 
 /** 步驟定義：順序與後端無關，僅 UI 與 Redux step 同步 */
 const STEPS = [

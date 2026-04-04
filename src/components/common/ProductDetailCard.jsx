@@ -232,8 +232,8 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
               </div>
               <div className="col-md-6">
                 <div className="row g-2 align-items-baseline">
-                  <div className="col-12 col-md-3 text-md-start text-muted small">價格</div>
-                  <div className="col-12 col-md-9 d-flex flex-wrap align-items-center gap-2 justify-content-md-end">
+                  <div className="col-md-3 text-md-start text-muted small">價格</div>
+                  <div className="col-md-9 d-flex flex-wrap align-items-center gap-2 justify-content-md-end">
                     <span className="text-decoration-line-through opacity-75">
                       <span className="small text-muted me-1">原價</span>
                       <MoneyAmount value={Number(selectedProduct.origin_price)} />
@@ -257,7 +257,7 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
                     </div>
                   </div>
                   <div className="row mt-2">
-                    <label className="col-12 mb-1 fw-bold">數量：</label>
+                    <label className="w-100 mb-1 fw-bold">數量：</label>
                     <div className="col-auto d-flex align-items-center border rounded">
                       <button
                         type="button"
@@ -290,7 +290,7 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
                         +
                       </button>
                     </div>
-                    <label className="col-12 mb-1 fw-bold d-flex flex-wrap align-items-baseline gap-2">
+                    <label className="w-100 mb-1 fw-bold d-flex flex-wrap align-items-baseline gap-2">
                       <span>金額</span>
                       <MoneyAmount value={total} total />
                     </label>
@@ -308,8 +308,7 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
                           await onAddToCart?.(selectedProduct, quantity);
                           setSuccessIconReady(false);
                           setShowAfterAddOptions(true);
-                        } catch (err) {
-                          console.error("加入購物車失敗", err);
+                        } catch {
                           setIsAddingToCart(false);
                         }
                       }}
@@ -320,7 +319,7 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
                 </div>
               </div>
               <div className="row mt-2 gap-2 p-0 text-left">
-                <div className="col-12">
+                <div className="w-100">
                   <p className="fw-bold mb-1 px-3">商品說明</p>
                   <p className="small text-muted mb-1 px-3">產品特色與適用情境</p>
                   <div
@@ -330,7 +329,7 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
                     {selectedProduct.description || "本商品說明由廠商提供，如有疑問歡迎聯繫客服。"}
                   </div>
                 </div>
-                <div className="col-12">
+                <div className="w-100">
                   <p className="fw-bold mb-1 px-3">商品內容</p>
                   <p className="small text-muted mb-1 px-3">規格、成分或使用方式等詳細資訊</p>
                   <div
