@@ -23,3 +23,10 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* 主打產品：卡片圖片填滿比例區塊 */
+.home-page__featured-card .ratio img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
