@@ -45,7 +45,7 @@ export default function CouponList() {
       };
       setCoupons(Array.isArray(list) ? list : []);
       setPagination(pag);
-    } catch (err) {
+    } catch {
       dispatch(showNotification({ type: "error", message: "取得優惠券失敗" }));
       setCoupons([]);
     } finally {
