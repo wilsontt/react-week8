@@ -8,7 +8,7 @@ import { selectTotalQty } from "../../slices/cartSlice";
 import { showNotification } from "../../slices/notificationSlice";
 import { clearAdminSession, getAdminTokenFromCookie } from "../../utils/adminSession";
 
-import logo from "../../assets/花草的世界_logo.png";
+import logo from "../../assets/brand-logo.png";
 
 /** 與 Bootstrap `navbar-expand-xl` 斷點一致（px） */
 const NAV_EXPAND_XL_MIN = 1200;

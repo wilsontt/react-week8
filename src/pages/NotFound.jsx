@@ -2,7 +2,7 @@ import { FaHome } from 'react-icons/fa';
 import { Link } from 'react-router';
 import PageWithLogoBg from '../components/common/PageWithLogoBg';
 
-import notFoundImage from '../assets/notFoundImage.png';
+import notFoundImage from "../assets/not-found.png";
 
 const NotFound = () => {
   return (

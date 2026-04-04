@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { FaLeaf } from "react-icons/fa";
 import PageWithLogoBg from "../components/common/PageWithLogoBg";
 
-import img1 from "../assets/首頁-1.png";
-import img2 from "../assets/首頁-2.png";
-import img3 from "../assets/首頁-3.png";
+import img1 from "../assets/home-carousel-1.png";
+import img2 from "../assets/home-carousel-2.png";
+import img3 from "../assets/home-carousel-3.png";
 import "./home.css";
 
 const CAROUSEL_IMAGES = [

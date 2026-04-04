@@ -2,10 +2,10 @@ import PageWithLogoBg from "../../components/common/PageWithLogoBg";
 import { FaLeaf } from "react-icons/fa";
 
 import styles from "./succulent.module.css";
-import img1 from "../../assets/空間造景-1.png";
-import img2 from "../../assets/空間造景-2.png";
-import img3 from "../../assets/空間造景-3.png";
-import img4 from "../../assets/空間造景-4.png";
+import img1 from "../../assets/landscape-1.png";
+import img2 from "../../assets/landscape-2.png";
+import img3 from "../../assets/landscape-3.png";
+import img4 from "../../assets/landscape-4.png";
 
 
 export default function Landscape() {

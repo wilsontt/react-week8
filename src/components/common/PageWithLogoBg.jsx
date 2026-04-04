@@ -1,4 +1,4 @@
-import logo from '../../assets/花草的世界_logo.png';
+import logo from "../../assets/brand-logo.png";
 
 /**
  * 頁面背景：淡色 logo 作為底圖，內容疊在上方

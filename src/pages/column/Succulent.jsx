@@ -1,13 +1,13 @@
 import { FaLeaf, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import PageWithLogoBg from "../../components/common/PageWithLogoBg";
-import img1 from "../../assets/認識多肉-1.png";
-import img2 from "../../assets/認識多肉-2.png";
-import img3 from "../../assets/陽光-1.png";
-import img4 from "../../assets/陽光-2.png";
-import img5 from "../../assets/空氣-1.png";
-import img6 from "../../assets/空氣-2.png";
-import img7 from "../../assets/水-1.png";
-import img8 from "../../assets/水-2.png";
+import img1 from "../../assets/succulent-guide-1.png";
+import img2 from "../../assets/succulent-guide-2.png";
+import img3 from "../../assets/succulent-sun-1.png";
+import img4 from "../../assets/succulent-sun-2.png";
+import img5 from "../../assets/succulent-air-1.png";
+import img6 from "../../assets/succulent-air-2.png";
+import img7 from "../../assets/succulent-water-1.png";
+import img8 from "../../assets/succulent-water-2.png";
 import styles from "./succulent.module.css";
 
 
