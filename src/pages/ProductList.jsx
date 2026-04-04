@@ -1,7 +1,7 @@
 // 產品列表頁面
 // - 右側：進頁先顯示第 1 頁 API 資料；背景靜默合併其餘頁後，篩選與分頁以全量資料於前端計算
 // - 左側：全量合併完成前顯示「載入分類中…」與區塊內 spinner（不另開視窗）
-// - 類別清單固定顯示全部（合併完成後），選中項加 .active
+// - 類別清單固定顯示全部（合併完成後）；選中 btn-success、未選 btn-outline-success（對齊首頁優惠 CTA，避免 outline + .active 與 :hover 衝突）
 //
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -15,6 +15,7 @@ import ProductDetailCard from "../components/common/ProductDetailCard";
 import MoneyAmount from "../components/common/MoneyAmount";
 import { getListItemNo } from "../utils/listUtils";
 import ListLoadingOverlay from "../components/common/ListLoadingOverlay";
+import "../components/common/card-accent-green.css";
 import {
   getPublicProductsFirstPage,
   fetchRemainingPublicProductPages,
@@ -203,7 +204,7 @@ export default function ProductList() {
           aria-hidden={initialLoading}
         >
           <aside className="col-md-3 col-lg-2">
-            <div className="card">
+            <div className="card card-accent-green">
               <div className="card-header fw-bold">產品分類</div>
               <div className="card-body p-2">
                 {categoriesLoading ? (
@@ -222,7 +223,9 @@ export default function ProductList() {
                       <button
                         key={cat}
                         type="button"
-                        className={`btn btn-sm w-100 text-start mb-1 btn-outline-secondary${isActive ? " active" : ""}`}
+                        className={`btn btn-sm w-100 text-start mb-1 ${
+                          isActive ? "btn-success" : "btn-outline-success"
+                        }`}
                         aria-current={isActive ? "true" : undefined}
                         onClick={() => handleCategoryClick(cat)}
                       >

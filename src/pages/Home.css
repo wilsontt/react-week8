@@ -30,3 +30,13 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* 首頁限時優惠（兒童節等檔期）：框線與底與 `.card-accent-green` 共用，見 `card-accent-green.css` */
+
+.home-page__promo-code {
+  font-size: 0.95rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(25, 135, 84, 0.08);
+  border-radius: 0.35rem;
+  word-break: break-all;
+}

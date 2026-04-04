@@ -1,17 +1,31 @@
 /**
- * 首頁：上方輪播、中間文字、主打產品（評分 5 分）、下方專欄主題連結
+ * 首頁：上方輪播、中間文字、主打產品（評分 5 分）、限時優惠、下方專欄主題連結
  */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { FaLeaf, FaStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { FaLeaf, FaRegCopy, FaStar } from "react-icons/fa";
 import PageWithLogoBg from "../components/common/PageWithLogoBg";
 import MoneyAmount from "../components/common/MoneyAmount";
+import { showNotification } from "../slices/notificationSlice";
 import { getAllPublicProducts } from "../services/productApi";
 
 import img1 from "../assets/home-carousel-1.png";
 import img2 from "../assets/home-carousel-2.png";
 import img3 from "../assets/home-carousel-3.png";
+import "../components/common/card-accent-green.css";
 import "./home.css";
+
+/** 兒童節檔期（精選活動碼；須與後台優惠券 code 一致方可於購物車套用） */
+const CHILDREN_DAY_PROMO = {
+  title: "慶祝兒童節 · 植栽同樂會",
+  code: "2026_Children's Day",
+  dueDate: "2026-04-30",
+  discountShort: "整單 90 折",
+  /** 行銷主文案 */
+  pitch:
+    "大手牽小手，把春天種進家裡！花草的世界推出兒童節限定——為孩子挑一盆好照顧的多肉或小品植栽，在澆水與觀察裡一起長大。活動期間結帳輸入下方優惠碼，即享整單以售價計算之 95 折優惠，讓綠意成為全家人共同的回憶。優惠有限期，敬請把握！",
+};
 
 const CAROUSEL_IMAGES = [
   { src: img1, alt: "客製化植栽展示" },
@@ -27,8 +41,28 @@ function isFiveStarEnabled(product) {
 }
 
 function Home() {
+  const dispatch = useDispatch();
   const [featuredLoading, setFeaturedLoading] = useState(true);
   const [featuredProducts, setFeaturedProducts] = useState([]);
+
+  const handleCopyPromoCode = useCallback(async () => {
+    const code = CHILDREN_DAY_PROMO.code;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(code);
+      } else {
+        throw new Error("clipboard_unavailable");
+      }
+      dispatch(showNotification({ type: "success", message: "已複製優惠碼，請至購物車貼上並套用" }));
+    } catch {
+      dispatch(
+        showNotification({
+          type: "error",
+          message: "無法自動複製，請手動選取優惠碼文字",
+        })
+      );
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     let cancelled = false;
@@ -136,8 +170,12 @@ function Home() {
                 主打產品 · 五星好評
               </h3>
               {featuredLoading ? (
-                <div className="text-center py-4 text-muted small" role="status">
-                  載入主打商品中…
+                <div className="text-center py-4 px-1" role="status" aria-live="polite">
+                  <p className="small text-muted mb-2 mb-md-3">載入主打商品中…</p>
+                  <div className="d-flex justify-content-center py-1">
+                    <div className="spinner-border spinner-border-sm text-success" aria-hidden="true" />
+                  </div>
+                  <span className="visually-hidden">載入主打商品中</span>
                 </div>
               ) : featuredProducts.length === 0 ? (
                 <p className="text-muted small text-center mb-0 px-1">
@@ -203,9 +241,44 @@ function Home() {
                 </>
               )}
             </section>
+
+            <section
+              className="home-page__promo text-start mt-4 pt-4 border-top"
+              aria-labelledby="home-promo-heading"
+            >
+              <h3 id="home-promo-heading" className="h5 text-center mb-3 fw-bold text-body">
+                {CHILDREN_DAY_PROMO.title}
+              </h3>
+              <p className="small text-muted lh-lg mb-3">{CHILDREN_DAY_PROMO.pitch}</p>
+              <div className="card-accent-green border rounded-3 p-3 p-md-4 shadow-sm">
+                <dl className="row small mb-3 gx-2 gy-2 mb-md-4">
+                  <dt className="col-sm-3 text-muted">優惠內容</dt>
+                  <dd className="col-sm-9 mb-0 fw-semibold text-success">{CHILDREN_DAY_PROMO.discountShort}</dd>
+                  <dt className="col-sm-3 text-muted">截止日期</dt>
+                  <dd className="col-sm-9 mb-0">{CHILDREN_DAY_PROMO.dueDate}</dd>
+                  <dt className="col-sm-3 text-muted">優惠碼</dt>
+                  <dd className="col-sm-9 mb-0">
+                    <code className="home-page__promo-code user-select-all">{CHILDREN_DAY_PROMO.code}</code>
+                  </dd>
+                </dl>
+                <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-sm-start">
+                  <button
+                    type="button"
+                    className="btn btn-success btn-sm d-inline-flex align-items-center gap-2"
+                    onClick={handleCopyPromoCode}
+                  >
+                    <FaRegCopy aria-hidden />
+                    複製優惠碼
+                  </button>
+                  <Link to="/cart" className="btn btn-outline-success btn-sm">
+                    前往購物車套用
+                  </Link>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
-          <hr />ß
+        <hr />
 
         {/* 下方：2 個專欄主題（窄螢幕直向堆疊、置中；勿與 w-50 等並用造成溢出） */}
         <div className="row g-3 g-md-4 justify-content-center mx-0 w-100">

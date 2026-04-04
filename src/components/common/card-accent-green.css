@@ -1,0 +1,12 @@
+/**
+ * 與首頁限時優惠區相同的綠色框線與淡綠漸層底（可複用於側欄分類等）
+ */
+.card-accent-green {
+  border-color: rgba(25, 135, 84, 0.25) !important;
+  background: linear-gradient(165deg, rgba(25, 135, 84, 0.06) 0%, #fff 45%) !important;
+}
+
+.card-accent-green > .card-header {
+  background: transparent;
+  border-bottom-color: rgba(25, 135, 84, 0.25);
+}
