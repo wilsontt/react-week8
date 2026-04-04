@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import Modal from "bootstrap/js/dist/modal";
 import { MODAL_NO_KEYBOARD } from "../../utils/bootstrapModalOptions";
+import { FaStar, FaRegStar } from "react-icons/fa";
 import { uploadImage } from "../../services/adminProductApi";
 
 /** 主圖 + 副圖合計上限；超過後鎖上傳，須先刪除圖片 */
@@ -35,9 +36,23 @@ function buildDefaultValues() {
     description: "",
     content: "",
     is_enabled: false,
+    /** 產品評分 0～5（顆星） */
+    rating: 0,
     imageUrl: "",
     imagesUrl: [""],
   };
+}
+
+/**
+ * 將 API／表單值正規化為 0～5 的整數評分
+ * @param {unknown} val
+ * @returns {number}
+ */
+function normalizeRating(val) {
+  const n = Math.floor(Number(val));
+  if (Number.isNaN(n) || n < 0) return 0;
+  if (n > 5) return 5;
+  return n;
 }
 
 export default function ProductFormModal({ show, mode, initialData, onClose, onSave }) {
@@ -109,6 +124,7 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
         description: initialData.description ?? "",
         content: initialData.content ?? "",
         is_enabled: Boolean(initialData.is_enabled),
+        rating: normalizeRating(initialData.rating),
         imageUrl: initialData.imageUrl ?? "",
         imagesUrl: initialData.imagesUrl?.length ? initialData.imagesUrl : [""],
       });
@@ -250,6 +266,7 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
       ...data,
       origin_price: Number(data.origin_price),
       price: Number(data.price),
+      rating: normalizeRating(data.rating),
       is_enabled: data.is_enabled ? 1 : 0,
       imageUrl: trimmedMain,
       imagesUrl: filteredSubs,
@@ -259,6 +276,7 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
   };
 
   const title = mode === "edit" ? "編輯產品" : "新增產品";
+  const ratingValue = normalizeRating(watch("rating"));
 
   if (!show) return null;
 
@@ -281,7 +299,7 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="modal-body">
               <div className="row">
-                {/* 右側：內容區 */}
+                {/* 左側：內容區 */}
                 <div className="col-sm-8">
                   <div className="mb-3">
                     <label className="form-label">標題 <span className="text-danger">*</span></label>
@@ -361,8 +379,40 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
                       {...register("content")}
                     />
                   </div>
-                  <div className="mb-3">
-                    <div className="form-check form-switch">
+                  <input type="hidden" {...register("rating", { valueAsNumber: true })} />
+                  <div className="mb-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                    <div>
+                      <div className="form-label text-primary small mb-1">產品評比分數 0～5 顆星</div>
+                      <div className="d-flex align-items-center flex-wrap gap-1">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <button
+                            key={n}
+                            type="button"
+                            className="btn btn-link p-0 border-0 lh-1"
+                            aria-label={`評分 ${n} 顆星`}
+                            aria-pressed={ratingValue >= n}
+                            onClick={() => setValue("rating", n, { shouldDirty: true, shouldValidate: true })}
+                          >
+                            {n <= ratingValue ? (
+                              <FaStar className="text-warning" size={28} aria-hidden />
+                            ) : (
+                              <FaRegStar className="text-secondary" size={28} aria-hidden />
+                            )}
+                          </button>
+                        ))}
+                        <span className="text-muted small ms-1" aria-live="polite">
+                          （{ratingValue} 分）
+                        </span>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary ms-1"
+                          onClick={() => setValue("rating", 0, { shouldDirty: true })}
+                        >
+                          設為 0 分
+                        </button>
+                      </div>
+                    </div>
+                    <div className="form-check form-switch mb-0">
                       <input
                         className="form-check-input"
                         type="checkbox"
@@ -377,7 +427,7 @@ export default function ProductFormModal({ show, mode, initialData, onClose, onS
                   </div>
                 </div>
                 
-                {/* 左側：圖片區 */}
+                {/* 右側：圖片區 */}
                 <div className="col-sm-4">
                   <div className="mb-3">
                     <label className="form-label">圖片來源網址</label>

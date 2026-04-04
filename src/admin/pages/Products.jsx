@@ -154,6 +154,18 @@ export default function Products() {
       render: (item) => <MoneyAmount value={item.price} total className="fw-semibold" />,
     },
     {
+      key: "rating",
+      label: "評分",
+      thClassName: "text-center",
+      tdClassName: "text-center",
+      style: { width: "72px" },
+      render: (item) => {
+        const r = Number(item.rating);
+        const display = Number.isNaN(r) ? 0 : Math.min(5, Math.max(0, Math.floor(r)));
+        return <span className="fw-semibold tabular-nums">{display}</span>;
+      },
+    },
+    {
       key: "is_enabled",
       label: "是否啟用",
       thClassName: "text-center",

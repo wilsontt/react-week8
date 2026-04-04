@@ -62,9 +62,8 @@ export default function ProductList() {
     }
   }, [dispatch]);
 
-  // 初始載入：預設全部商品、第 1 頁
+  // 初始載入：預設全部商品、第 1 頁，避免初始 API 取得產品為標準模式 
   useEffect(() => {
-    // eslint-disable-next-line -- 初始 API 取得產品為標準模式
     getProducts(1, null);
   }, [getProducts]);
 
