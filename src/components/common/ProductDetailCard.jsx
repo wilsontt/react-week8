@@ -113,8 +113,22 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="productModalLabel">
-              {showAfterAddOptions ? "加入購物車" : selectedProduct.title}
+            <h5
+              className="modal-title d-flex flex-wrap align-items-center gap-2"
+              id="productModalLabel"
+            >
+              {showAfterAddOptions ? (
+                "加入購物車"
+              ) : (
+                <>
+                  <span>{selectedProduct.title}</span>
+                  {selectedProduct.category ? (
+                    <small className="badge bg-secondary fw-normal">
+                      {selectedProduct.category}
+                    </small>
+                  ) : null}
+                </>
+              )}
             </h5>
             <button
               type="button"
@@ -243,15 +257,17 @@ function ProductDetailCard({ selectedProduct, onClose, onAddToCart }) {
                       <MoneyAmount value={Number(selectedProduct.price)} className="fs-4 fw-bold text-danger" />
                     </span>
                   </div>
-                  <div className="row">
-                    <div className="col-3 text-left g2">單位：{selectedProduct.unit}</div>
-                    <div className="col-3 text-left text-lg-end g2 d-flex align-items-center gap-1">
-                      {/* 用顆星顯示星級 */}
+                  <div className="col-12 d-flex justify-content-between align-items-center gap-2 mt-1 flex-nowrap">
+                    <div className="small text-muted text-nowrap">
+                      單位：<span className="text-dark fw-semibold">{selectedProduct.unit || "—"}</span>
+                    </div>
+                    <div className="d-flex align-items-center gap-1 text-nowrap">
+                      <span className="small text-muted">評分：</span>
                       {[1, 2, 3, 4, 5].map((i) =>
                         i <= (selectedProduct.rating ?? 0) ? (
-                          <FaStar key={i} className="text-warning" size={24} />
+                          <FaStar key={i} className="text-warning" size={20} />
                         ) : (
-                          <FaRegStar key={i} className="text-secondary" size={24} />
+                          <FaRegStar key={i} className="text-secondary" size={20} />
                         )
                       )}
                     </div>

@@ -217,6 +217,7 @@ export default function ProductList() {
                     </div>
                   </div>
                 ) : (
+                  // 展開「產品分類」清單陣列，顯示全部、其他分類
                   categories.map((cat) => {
                     const isActive = activeCategory === cat;
                     return (
@@ -249,7 +250,7 @@ export default function ProductList() {
                 <span className="d-inline-block ms-1 small">（資料載入中，筆數將隨背景同步更新）</span>
               ) : null}
             </p>
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3">
               {displayProducts.length === 0 ? (
                 <div className="w-100 text-muted py-5">目前沒有符合條件的商品</div>
               ) : (
@@ -280,26 +281,35 @@ export default function ProductList() {
                             </div>
                           )}
                         </div>
-                        <div className="h4 text-left text-dark">
-                          {item.title}
-                          <small className="fs-6 fw-light bg-secondary text-white px-1 py-0 rounded-pill">{item.category}</small>
+                        <div className="h4 text-start text-dark d-flex flex-wrap align-items-center gap-1 mb-0">
+                          <span className="flex-grow-1 min-w-0">{item.title}</span>
+                          {item.category ? (
+                            <small className="fs-6 fw-light bg-secondary text-white px-1 py-0 rounded-pill text-nowrap flex-shrink-0">
+                              {item.category}
+                            </small>
+                          ) : null}
                         </div>
                         <div className="mt-0 gap-2 text-start">{item.description}</div>
-                        <div className="d-flex justify-content-between align-items-left mt-0 gap-2 flex-wrap">
+                        <div className="d-flex justify-content-between align-items-center mt-2 gap-2">
                           <div className="d-flex flex-wrap align-items-center gap-2">
-                            <span className="text-muted small">價格</span>
+                            <span className="text-muted small">價格：</span>
                             <span className="text-decoration-line-through opacity-75">
                               <MoneyAmount value={Number(item.origin_price)} />
                             </span>
                             <MoneyAmount value={Number(item.price)} className="text-danger fw-semibold" />
                           </div>
-                          <div className="col-3 text-left">單位：{item.unit}</div>
-                          <div className="col-3 text-left d-flex align-items-center gap-1">
+                        </div>
+                        <div className="d-flex justify-content-between align-items-center gap-2 mt-1 flex-nowrap overflow-hidden">
+                          <div className="small text-muted text-nowrap">
+                            單位：<span className="text-dark fw-semibold">{item.unit || "—"}</span>
+                          </div>
+                          <div className="d-flex align-items-center gap-0 text-nowrap flex-shrink-1">
+                            <span className="small text-muted">評分：</span>
                             {[1, 2, 3, 4, 5].map((i) =>
                               i <= (item.rating ?? 0) ? (
-                                <FaStar key={i} className="text-warning" size={18} />
+                                <FaStar key={i} className="text-warning" size={14} />
                               ) : (
-                                <FaRegStar key={i} className="text-secondary" size={18} />
+                                <FaRegStar key={i} className="text-secondary" size={14} />
                               )
                             )}
                           </div>
