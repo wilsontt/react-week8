@@ -162,7 +162,9 @@ export default function Products() {
       render: (item) => {
         const r = Number(item.rating);
         const display = Number.isNaN(r) ? 0 : Math.min(5, Math.max(0, Math.floor(r)));
-        return <span className="fw-semibold tabular-nums">{display}</span>;
+        const toneClass =
+          display === 5 ? "text-danger" : display >= 3 && display <= 4 ? "text-primary" : "";
+        return <span className={`fw-semibold tabular-nums ${toneClass}`.trim()}>{display}</span>;
       },
     },
     {

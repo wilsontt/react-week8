@@ -1,21 +1,21 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+本範本提供以 **React** 搭配 **Vite** 的最小可行設定，內建 **HMR（熱模組替換）** 與基本 **ESLint** 規則。
 
-Currently, two official plugins are available:
+目前官方提供兩種外掛可擇一使用：
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) 透過 [Babel](https://babeljs.io/)（於 [rolldown-vite](https://vite.dev/guide/rolldown) 情境下亦可改用 [oxc](https://oxc.rs)）達成 **Fast Refresh**
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) 透過 [SWC](https://swc.rs/) 達成 **Fast Refresh**
 
 ## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+本範本**未**預設啟用 **React Compiler**，因其對開發與建置效能仍有影響。若需啟用，請參閱[官方文件](https://react.dev/learn/react-compiler/installation)。
 
-## Expanding the ESLint configuration
+## 擴充 ESLint 設定
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+若您開發正式上線之應用程式，建議搭配 **TypeScript** 並啟用具型別感知的 lint 規則。可參考 Vite 的 [React + TypeScript 範本](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts)，了解如何整合 TypeScript 與 [`typescript-eslint`](https://typescript-eslint.io)。
 
---- 
+---
 # 《花草的世界》專案提交說明（規劃／開發前階段）
 
 > 本文件語境為 **專案尚未建置、尚未進入開發** 之交件用說明：以規劃與預計範圍為主，不宣稱已完成實作或部署。  
@@ -89,7 +89,7 @@ A[花草的世界]
 
 - 前台可完成「瀏覽商品 → 購物車 → 填寫資料 → 送出／完成流程」之主要動線。
 - 後台可完成商品、訂單、優惠券之基本維運。
-- 各頁文案完整、非占位；產品資料量符合課程對電商主題之要求。
+- 各頁文案完整、不使用預留字樣；產品資料量符合課程對電商主題之要求。
 - 繳交物（Repo、可執行說明、部署連結等）依課程公告另行檢核。
 
 ---

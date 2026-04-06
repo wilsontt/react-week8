@@ -8,19 +8,19 @@
 
 請將原始目錄中的以下 **5 個核心檔案** 複製到您專案的 `src/components/CalendarIcon/` 路徑下：
 
-- **`CalendarIcon.jsx`**：核心 SVG 圖標繪製元件。
-- **`DateTimeDisplay.jsx`**：主要的顯示元件（組合了圖標與時間文字）。
+- **`CalendarIcon.jsx`**：核心 SVG 圖示繪製元件。
+- **`DateTimeDisplay.jsx`**：主要的顯示元件（組合了圖示與時間文字）。
 - **`useCurrentTime.js`**：負責時間自動更新邏輯的自訂 Hook。
-- **`index.js`**：模組導出入口檔案。
+- **`index.js`**：模組匯出入口檔案。
 - **`README.md`**：元件原始開發文件。
 
 > **注意**：`Examples.jsx` 為範例檔案，不需要複製到生產環境中，僅供參考用法。
 
 ---
 
-## 2. 安裝必要依賴
+## 2. 安裝必要相依套件
 
-本元件依賴以下套件，請在專案根目錄執行：
+本元件需要以下相依套件，請在專案根目錄執行：
 
 ```bash
 # 使用 npm
@@ -45,7 +45,7 @@ import { useCurrentTime } from './useCurrentTime';
 ```
 
 ### (2) 修改 `index.js`
-確保導出路徑正確：
+確保匯出路徑正確：
 ```jsx
 export { useCurrentTime } from './useCurrentTime';
 export { DateTimeDisplay } from './DateTimeDisplay';
@@ -68,14 +68,14 @@ export { CalendarIcon } from './CalendarIcon';
    yarn add bootstrap
    ```
 
-2. **引入 CSS 和 JS**：在您的主入口檔案（如 `main.jsx`）中加入：
+2. **匯入 CSS 與 JS**：在您的主入口檔案（如 `main.jsx`）中加入：
    ```jsx
    import 'bootstrap/dist/css/bootstrap.min.css';
    import 'bootstrap/dist/js/bootstrap.bundle.min.js';
    ```
 
 3. **使用 Bootstrap 類別**：元件已使用 Bootstrap 類別，如：
-   - `d-flex`：flexbox 布局
+   - `d-flex`：flexbox 版面配置
    - `align-items-center`：垂直置中
    - `text-start/center/end`：文字對齊
    - `small`：小字體
@@ -106,7 +106,7 @@ export { CalendarIcon } from './CalendarIcon';
 
 ## 6. 元件使用方法
 
-在您的 React 頁面中引入並使用：
+在您的 React 頁面中匯入並使用：
 
 ### 基本使用
 ```jsx
@@ -122,7 +122,7 @@ function Header() {
 }
 ```
 
-### 單行簡潔模式 (適合導航欄)
+### 單行簡潔模式（適合導覽列）
 ```jsx
 <DateTimeDisplay 
   singleLine 
@@ -141,7 +141,7 @@ function Header() {
 | `dateFormat` | `string` | 日期格式 (預設: `yyyy年MM月dd日`) |
 | `timeFormat` | `string` | 時間格式 (預設: `HH:mm:ss`) |
 | `showWeekday` | `boolean` | 是否顯示星期 |
-| `showCalendarIcon` | `boolean` | 是否顯示 SVG 日曆圖標 |
+| `showCalendarIcon` | `boolean` | 是否顯示 SVG 日曆圖示 |
 | `singleLine` | `boolean` | 是否強制單行顯示 |
 | `textAlign` | `'left'\|'center'\|'right'` | 文字對齊方式 |
 | `className` | `string` | 自訂 className（Bootstrap 類別） |
@@ -154,10 +154,10 @@ function Header() {
 
 ## 8. 常見問題 (FAQ)
 
-**Q: 為什麼圖標上面的日期沒有更新？**
+**Q: 為什麼圖示上面的日期沒有更新？**
 A: 該元件透過 `useCurrentTime` Hook 每秒驅動重新渲染。請確保 `CalendarIcon` 元件接收到的 `date` 是來自於 `DateTimeDisplay` 內部的 `currentTime` 狀態。
 
-**Q: 如何修改圖標的顏色？**
+**Q: 如何修改圖示的顏色？**
 A: 請直接進入 `CalendarIcon.jsx` 修改 `fill` 屬性的色碼（如 `#87CEEB` 為月份背景色）。
 
 **Q: 如何自訂樣式？**

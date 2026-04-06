@@ -231,29 +231,23 @@
 }
 
 /**
- * 平板／手機：數量改直向（上 ＋、中數字、下 −），價格兩行；縮小數量欄寬
+ * 平板（768～1199）：表格數量欄維持左右排列（− 數字 ＋），避免上下堆疊難操作
  */
-@media (max-width: 1199.98px) {
+@media (min-width: 768px) and (max-width: 1199.98px) {
   .cart-page__th-qty,
   .cart-page__td-qty {
-    width: 3.25rem;
-    min-width: 3.25rem;
-    padding-left: 0.35rem;
-    padding-right: 0.35rem;
+    width: 7rem;
+    min-width: 7rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
   }
 
-  /** 僅表格內數量欄改直向；卡片版沿用橫向圈圈加減（與桌機表格同一套 class） */
   .cart-page__table .cart-page__qty-wrap {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .cart-page__table .cart-page__qty-btn--plus {
-    order: 1;
+    flex-direction: row;
+    gap: 0.35rem;
   }
 
   .cart-page__table .cart-page__qty-num {
-    order: 2;
     min-width: 1.25rem;
     text-align: center;
     font-size: 0.9rem;
@@ -261,9 +255,28 @@
     padding-left: 0;
     padding-right: 0;
   }
+}
 
-  .cart-page__table .cart-page__qty-btn--minus {
-    order: 3;
+/**
+ * 1199 以下：右側「訂單內容」金額保持 NT$ 與數字同一行，提升可讀性
+ */
+@media (max-width: 1199.98px) {
+  .cart-page__summary-row .cart-page__price-cell {
+    white-space: nowrap;
+    text-align: right !important;
+  }
+
+  .cart-page__summary-row .cart-page__price-cell .cart-page__currency,
+  .cart-page__summary-row .cart-page__price-cell .cart-page__amount {
+    display: inline;
+    line-height: inherit;
+  }
+
+  .cart-page__summary-row .cart-page__price-cell .cart-page__currency {
+    margin-right: 0.25rem;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
   }
 }
 

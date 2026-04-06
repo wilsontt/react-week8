@@ -9,22 +9,22 @@
 
 - **`useCurrentTime` Hook**：提供自動更新的當前時間
 - **`DateTimeDisplay` 元件**：完整的日期時間顯示元件
-- **`CalendarIcon` 元件**：日曆圖標 SVG 元件
+- **`CalendarIcon` 元件**：日曆圖示 SVG 元件
 
 ## 功能特色
 
 - ✅ 自動更新時間（可自訂更新頻率）
 - ✅ 支援自訂日期時間格式（使用 date-fns）
 - ✅ 支援顯示/隱藏星期
-- ✅ 支援顯示/隱藏日曆圖標
+- ✅ 支援顯示/隱藏日曆圖示
 - ✅ 支援單行/兩行顯示模式
 - ✅ 可自訂樣式和對齊方式
 - ✅ 使用 Bootstrap 5 進行樣式設定
-- ✅ 零依賴（除了 date-fns 和 React）
+- ✅ 除 date-fns 與 React 外，無其他相依套件
 
 ## 安裝需求
 
-本模組需要以下依賴：
+本模組需要以下相依套件：
 
 ```json
 {
@@ -46,7 +46,7 @@ function MyComponent() {
 }
 ```
 
-### 帶日曆圖標
+### 帶日曆圖示
 
 ```jsx
 import { DateTimeDisplay } from './components/CalendarIcon';
@@ -116,7 +116,7 @@ const time = useCurrentTime({ interval: 1000, immediate: false });
 | `dateFormat` | `string` | `"yyyy年MM月dd日"` | 日期格式（date-fns format string） |
 | `timeFormat` | `string` | `"HH:mm:ss"` | 時間格式（date-fns format string） |
 | `showWeekday` | `boolean` | `true` | 是否顯示星期 |
-| `showCalendarIcon` | `boolean` | `false` | 是否顯示日曆圖標 |
+| `showCalendarIcon` | `boolean` | `false` | 是否顯示日曆圖示 |
 | `updateInterval` | `number` | `1000` | 更新間隔（毫秒） |
 | `textAlign` | `'left' \| 'center' \| 'right'` | `'right'` | 文字對齊方式 |
 | `className` | `string` | - | 自訂 className（Bootstrap 類別） |
@@ -131,7 +131,7 @@ const time = useCurrentTime({ interval: 1000, immediate: false });
 // 基本使用
 <DateTimeDisplay />
 
-// 帶日曆圖標
+// 帶日曆圖示
 <DateTimeDisplay showCalendarIcon />
 
 // 自訂格式
@@ -162,7 +162,7 @@ const time = useCurrentTime({ interval: 1000, immediate: false });
 詳細的使用範例請參考 [`Examples.jsx`](./Examples.jsx) 檔案，包含：
 
 1. 基本使用
-2. 帶日曆圖標
+2. 帶日曆圖示
 3. 自訂日期時間格式
 4. 單行顯示
 5. 自訂樣式和對齊方式
@@ -170,7 +170,7 @@ const time = useCurrentTime({ interval: 1000, immediate: false });
 7. 僅使用 Hook
 8. 多個實例
 9. 在卡片中使用
-10. 響應式設計
+10. 響應式網頁設計（RWD）
 
 ## 日期時間格式參考
 
@@ -230,7 +230,7 @@ import { DateTimeDisplay } from '@/components/DateTimeDisplay';
 import { useCurrentTime } from '@/hooks/useCurrentTime';
 ```
 
-### 確保依賴已安裝
+### 確保相依套件已安裝
 
 ```bash
 npm install date-fns bootstrap
@@ -244,14 +244,14 @@ yarn add date-fns bootstrap
 
 1. 複製 `src/components/CalendarIcon/CalendarIcon.jsx` 到您的專案
 2. 或修改 `DateTimeDisplay.jsx` 中的匯入路徑
-3. 或設定 `showCalendarIcon={false}` 不使用圖標
+3. 或設定 `showCalendarIcon={false}` 不使用圖示
 
 ## 注意事項
 
 1. **效能考量**：預設每秒更新一次，如果有多個實例，請考慮調整更新頻率
 2. **時區**：時間顯示基於使用者瀏覽器的本地時區
 3. **格式字串**：請確保使用正確的 date-fns 格式字串
-4. **樣式依賴**：本元件使用 Bootstrap 5 類別，請確保專案已安裝並引入 Bootstrap CSS
+4. **樣式相依**：本元件使用 Bootstrap 5 類別，請確保專案已安裝並匯入 Bootstrap CSS
 
 ## 授權
 
